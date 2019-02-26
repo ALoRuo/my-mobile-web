@@ -1,0 +1,13 @@
+@import "common";
+.shopping-cart {
+  .am-tabs-horizontal .am-tabs-pane-wrap-active{
+    height:calc(100% - 70px);
+  }
+  .shopping-bottom{
+    position: fixed;
+    height: 40px;
+    bottom:50px;
+    width:100%;
+    border:$border-style;
+  }
+}

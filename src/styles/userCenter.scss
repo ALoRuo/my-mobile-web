@@ -1,0 +1,77 @@
+@import "common";
+.user-content{
+  background: #ececec;
+  height: 100%;
+  .user-header{
+    height:150px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background: #4d647d;
+    .user-header-pic{
+      flex: 1 1;
+      border-right:1px solid #fff;
+    }
+    .user-header-name{
+      flex: 2 1;
+      padding-top: 50px;
+      p{
+        color:#fff;
+        margin: 0 0 10px -70px;
+      }
+    }
+  }
+  .small-p{
+    font-size: 12px;
+    padding-bottom: 2px;
+    color:#666;
+  }
+  .green-number{
+    color: #7cb37c;
+    font-weight: bold;
+    font-size: 15px;
+  }
+  .user-shopping{
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 6px 0;
+    background: #fff;
+    .percent-20{
+      width:20%;
+      height:50px;
+    }
+    .percent-25{
+      width:25%;
+      height:50px;
+    }
+  }
+  .user-message,.user-setting{
+    margin-bottom: 10px;
+    background: #fff;
+    p{
+      font-size: 16px;
+      text-align: left;
+      padding: 8px 0;
+      border-bottom: $border-style;
+      span{
+        display: inline-block;
+        margin-right: -30px;
+      }
+    }
+  }
+  //.user-setting{
+  //  margin-bottom: 10px;
+  //  background: #fff;
+  //  p{
+  //    font-size: 16px;
+  //    text-align: left;
+  //    padding: 6px;
+  //    border-bottom: 1px solid #ccc;
+  //  }
+  //}
+}
