@@ -1,6 +1,17 @@
+//公共样式
 p {
   margin:0;
+}
+li{
+  list-style:none;
+}
+ul{
+  padding:0;
+  margin:0
 }
 //公共边样式
 $border-style-color: #ccc;
 $border-style: solid 1px $border-style-color;
+
+//公共背景颜色
+$background-color:#ececec;

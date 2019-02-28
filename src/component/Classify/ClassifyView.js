@@ -1,5 +1,6 @@
 import React from "react";
-import { Menu, ActivityIndicator } from 'antd-mobile';
+import { Flex, WhiteSpace } from 'antd-mobile';
+import NavBody from './NavBody'
 import 'styles/classify.scss'
 
 const data = [
@@ -104,61 +105,47 @@ const data = [
         ],
     },
 ];
+const navBarData = ['服装','餐厨','配件','居家'];
 export default class MainView extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            initData: data,
+            selectedValue:0,
         };
     }
-    onChange = (value) => {
-        // console.log(value)
-        let label = '';
-        data.forEach((dataItem) => {
-            if (dataItem.value === value[0]) {
-                label = dataItem.label;
-                if (dataItem.children && value[1]) {
-                    dataItem.children.forEach((cItem) => {
-                        if (cItem.value === value[1]) {
-                            label += ` ${cItem.label}`;
-                        }
-                    });
-                }
+    linkStyle = (value) => {
+        let {selectedValue} = this.state;
+        if(selectedValue === value) {
+            return{
+                background:'#fff'
             }
-        });
-        // console.log(label);
+        }else {
+            return{
+                background:'#f1f1f1'
+            }
+        }
+    }
+    toggleHover=(value)=>{
+       this.setState({
+           selectedValue:value
+       })
+
     }
     render(){
-        const { initData } = this.state;
-        const menuEl = (
-            <Menu
-                className="foo-menu"
-                data={initData}
-                value={['1', '3']}
-                onChange={this.onChange}
-                height={document.documentElement.clientHeight * 0.6}
-            />
-        );
-        const loadingEl = (
-            <div style={{ width: '100%', height: document.documentElement.clientHeight * 0.6, display: 'flex', justifyContent: 'center' }}>
-                <ActivityIndicator size="large" />
-            </div>
-        );
+        let {selectedValue} = this.state;
         return(
             <div className='menu-active'>
-                {/*<div>*/}
-                {/*<NavBar*/}
-                {/*leftContent="Menu"*/}
-                {/*mode="light"*/}
-                {/*icon={<img src="https://gw.alipayobjects.com/zos/rmsportal/iXVHARNNlmdCGnwWxQPH.svg" className="am-icon am-icon-md" alt="" />}*/}
-                {/*onLeftClick={this.handleClick}*/}
-                {/*className="top-nav-bar"*/}
-                {/*>*/}
-                {/*Here is title*/}
-                {/*</NavBar>*/}
-                {/*</div>*/}
-                {initData ? menuEl : loadingEl}
-                {/*{show ? <div className="menu-mask" onClick={this.onMaskClick} /> : null}*/}
+                <div className='left-nav-bar'>
+                    <ul>
+                        {
+                            navBarData.map((item, index) => {
+                                return <li className='nav-item' style={this.linkStyle(index)}
+                                           onClick={() => this.toggleHover(index)}>{item}</li>
+                            })
+                        }
+                    </ul>
+                </div>
+                <NavBody type={selectedValue}/>
             </div>
         )
     }

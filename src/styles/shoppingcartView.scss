@@ -1,13 +1,108 @@
 @import "common";
 .shopping-cart {
-  .am-tabs-horizontal .am-tabs-pane-wrap-active{
-    height:calc(100% - 70px);
+  background: $background-color;
+  .shopping-cart-body{
+    height:calc(100vh - 145px);
+    overflow-y: auto;
+    .am-list-item{
+     height:20%;
+      .am-list-content{
+        height:100%;
+        .shopping-cart-item{
+          height: 100%;
+        }
+      }
+    }
+    .checkbox-item{
+      border-top:$border-style;
+      border-bottom:$border-style;
+      margin-bottom: 10px;
+      background: #fff;
+      .name-price{
+        display: inline-block;
+        vertical-align: bottom;
+        font-size: 14px;
+        margin-left: 6%;
+        position: relative;
+        .count-step{
+          position: absolute;
+          width: 26%;
+          border: 1px solid #ccc;
+          height: 30%;
+          line-height: 20px;
+          bottom: 0;
+          right: 0;
+          .left {
+            width: 30%;
+            display: inline-block;
+            text-align: center;
+            border-right: 1px solid #ccc;
+          }
+          .center {
+            width: 40%;
+            display: inline-block;
+            text-align: center;
+            border-right: 1px solid #ccc;
+          }
+          .right{
+            width: 30%;
+            display: inline-block;
+            text-align: center;
+          }
+        }
+        .shoppingcart-product-name{
+          //width: 50%;
+          //overflow: hidden;
+          //text-overflow: ellipsis;
+          //display: -webkit-box;
+          //-webkit-line-clamp: 2;
+          //-webkit-box-orient: vertical;
+          //font-size: 12px;
+          //height: 53px;
+          height: 53px;
+          width: 200px;
+          display: -webkit-box;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          /*! autoprefixer: off */
+          -webkit-box-orient: vertical;
+          /*! autoprefixer: on */
+          -webkit-line-clamp: 2;
+          font-size: 12px;
+        }
+      }
+    }
+    .checkbox-item:first-child{
+      margin-top: 10px;
+    }
   }
   .shopping-bottom{
     position: fixed;
-    height: 40px;
+    height: 50px;
     bottom:50px;
     width:100%;
-    border:$border-style;
+    border-top:$border-style;
+    border-bottom: $border-style;
+    .am-list-item.am-list-item-active{
+      background: #fff;
+    }
+    &>span{
+      display: inline-block;
+      width: 20%;
+      height: 80%;
+      background: #7cb37c;
+      color: #fff;
+      font-size: 16px;
+      line-height: 40px;
+      position: absolute;
+      right: 0;
+      border-radius: 22px;
+      top:50%;
+      transform: translateY(-50%);
+    }
   }
+  //.shopping-cart-item{
+  //  position: relative;
+  //
+  //}
 }

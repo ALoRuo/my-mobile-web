@@ -31,17 +31,27 @@ export default class MainView extends React.Component {
         );
     }
     render(){
+        const {selectedTab} = this.state;
+        console.log(selectedTab)
+        let navTitle = 'Mall商城';
+        switch(selectedTab){
+            case 'blueTab':navTitle='Mall商城';break;
+            case 'classify':navTitle='商品分类';break;
+            case 'shoppingCart' : navTitle='购物车';break;
+            case 'userMessage' :navTitle='用户中心';break;
+        }
         return(
             <div>
                 <NavBar
+                    style={{position:'fixed',top:0,width:'100%'}}
                     mode="light"
-                    icon={<Icon type="left" />}
-                    onLeftClick={() => console.log('onLeftClick')}
-                    rightContent={[
-                        <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
-                        <Icon key="1" type="ellipsis" />,
-                    ]}
-                >Mall商城</NavBar>
+                    // icon={<Icon type="left" />}
+                    // onLeftClick={() => console.log('onLeftClick')}
+                    // rightContent={[
+                    //     <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
+                    //     <Icon key="1" type="ellipsis" />,
+                    // ]}
+                >{navTitle}</NavBar>
 
                 <div style={{ position: 'fixed', height: 'calc(100% - 45px)', width: '100%', top: 45 }}>
 
