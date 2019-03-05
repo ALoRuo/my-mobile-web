@@ -1,9 +1,13 @@
 import React from "react";
-import { Stepper , Checkbox,Modal, Button, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
-import 'styles/shoppingcartView.scss'
+import { Stepper , Checkbox,Modal, Toast, WhiteSpace, WingBlank } from 'antd-mobile';
+import 'styles/shoppingcartView.scss';
+import { Link } from "react-router-dom";
+import model from 'models/shoppingCartModel';
+import history from 'utils/HistoryRedirection'
+
 let data = [];
 for(let i =0 ;i<10;i++) {
-    data.push({productId: i, productName: i+'高腰复古宽松显瘦百搭水洗浅色超长开叉牛仔长裤高腰百搭老爹款',productCount:1})
+    data.push({productId: i, productName: i+'高腰复古宽松显瘦百搭水洗浅色超长开叉牛仔长裤高腰百搭老爹款呵呵呵呵呵呵呵呵呵呵呵呵或或',productCount:1})
 }
 
 const alert = Modal.alert;
@@ -14,16 +18,32 @@ export default class MainView extends React.Component {
         this.state = {
             stepVal:1,
             dataSource:[],
+            checkedList:[]
         }
     }
     componentWillMount(){
     //    调接口获取这个用户的购物车数据传参（customerId）,获取数据格式[{productId,productName,productCount}]
+    //   测试接口
+        model.test({}).then(res=>console.log(res));
         this.setState({
             dataSource:data,
         })
     }
-    handleCheckChange = (val) => {
-        console.log(val);
+    handleCheckChange = (e,val) => {
+        let { checkedList,dataSource } = this.state;
+        let deleteIndex = '';
+        if(e.target.checked){
+            checkedList.push(dataSource.find(item=>item.productId === val));
+        }else {
+            dataSource.forEach((item,index)=>{
+                if(item.productId === val){
+                    deleteIndex = index;
+                }
+            });
+            checkedList.splice(deleteIndex,1);
+        }
+        this.setState({checkedList})
+        // console.log(e,val);
     }
     // 0表示减，1表示加
     handleStepChange = (step,value,index) => {
@@ -52,11 +72,18 @@ export default class MainView extends React.Component {
         //防止数组第一个元素没有被绑定到
         checkBoxs[0].querySelector('span.am-checkbox input').click();
         checkBoxs.forEach((item,index)=>{
-            console.log(item)
             item.querySelector('span.am-checkbox input').click();
 
         })
 
+    }
+    paymentFn = () => {
+        let { checkedList } = this.state;
+        if(checkedList.length>0){
+            history.push('/payment');
+        }else {
+            Toast.info('您还没有选择宝贝哦！', 1);
+        }
     }
 
     render(){
@@ -67,7 +94,7 @@ export default class MainView extends React.Component {
                 {/*<List renderHeader={() => 'CheckboxItem demo'} >*/}
                 <div className='shopping-cart-body'>
                     {dataSource.map((item,index) => (
-                        <CheckboxItem key={item.productId} onChange={() => this.handleCheckChange(item.productId)} className='checkbox-item'>
+                        <CheckboxItem key={item.productId} onChange={(e) => this.handleCheckChange(e,item.productId)} className='checkbox-item'>
                             <div className='shopping-cart-item'>
                                 <div style={{
                                     display:'inline-block',
@@ -77,8 +104,8 @@ export default class MainView extends React.Component {
                                     border:'1px solid #ccc'
                                 }}>pic</div>
                                 <div className='name-price'>
-                                    <p className='shoppingcart-product-name' >{item.productName}</p>
-                                    <p>￥99.0</p>
+                                    <div className='shoppingcart-product-name' >{item.productName}</div>
+                                    <p style={{color:'#f7500d'}}>￥99.0</p>
                                     <div className="count-step">
                                         <span className='left' onClick={()=>this.handleStepChange(0,item.productCount,index)}>-</span>
                                         <span className='center'>{item.productCount}</span>
@@ -102,7 +129,7 @@ export default class MainView extends React.Component {
                             <span>全选</span>
                         </CheckboxItem>
                     </div>
-                    <span>结算</span>
+                    <span onClick={this.paymentFn}>结算</span>
                 </div>
             </div>
         )

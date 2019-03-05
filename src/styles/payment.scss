@@ -1,0 +1,102 @@
+@import "common";
+.payment-content {
+  height: 100%;
+  .payment-body{
+    overflow-y: auto;
+    margin-top: 45px;
+    background: #ececec;
+    .picker-list .am-list-item .am-list-line .am-list-extra {
+      flex-basis: initial;
+    }
+    .am-list-item .am-input-control input{
+      color:#333;
+      font-size: 12px;
+    }
+    .payment-address{
+      background: #fff;
+      height: 13%;
+      padding: 11px 20px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .payment-order{
+      margin-bottom: 10px;
+      background: #fff;
+      .shop-message{
+        height: 36px;
+        line-height: 36px;
+        font-size: 12px;
+        color: #666;
+        padding-left: 10px;
+        border-bottom: solid 1px #ececec;
+      }
+      .shop-product-list-item{
+        padding: 10px;
+        display:flex;
+        border-bottom: solid 1px #ececec;
+        .pic{
+          height: 60px;
+          width: 80px;
+          border: 1px solid #ccc;
+          margin-right: 10px;
+          flex: 1;
+        }
+        .message{
+          font-size: 12px;
+          color:#333;
+          padding: 3px 0;
+          flex: 3;
+          div{
+            margin-bottom: 5px;
+          }
+        }
+      }
+    }
+  }
+  .payment-bottom{
+    display: flex;
+    height:45px;
+    line-height: 45px;
+    position: fixed;
+    width: 100%;
+    background: #f1f1f1;
+    bottom: 0;
+    z-index: 1000;
+    p:first-child{
+      flex: 2 1;
+      text-align: right;
+      padding-right: 10px;
+    }
+    p:last-child{
+      flex: 1 1;
+      background: #7cb37c;
+      color:#fff;
+      text-align: center;
+      font-size: 16px;
+    }
+  }
+}
+.pay-result{
+  background: #ececec;
+  .result-example{
+    position: relative;
+    top: 45px;
+    background-color: #fff;
+    text-align: center;
+    .spe {
+      width: 60px;
+      height: 60px;
+
+    }
+    .pay-result-button{
+      border: 1px solid #7cb37c;
+      vertical-align: middle;
+      margin-top: 12px;
+      margin-bottom: 12px;
+      color: #7cb37c;
+    }
+  }
+}

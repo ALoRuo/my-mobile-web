@@ -9,9 +9,28 @@ ul{
   padding:0;
   margin:0
 }
+a{
+  color: #fff;
+}
+.fontsize-14 {
+  font-size: 14px;
+  color:#333;
+}
+.fontsize-12 {
+   font-size: 12px;
+  color:#333;
+}
+*{
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box;
+}
 //公共边样式
 $border-style-color: #ccc;
 $border-style: solid 1px $border-style-color;
 
 //公共背景颜色
 $background-color:#ececec;
+//主题色
+$themeColor:#7cb37c;
+//价格颜色
+$priceColor:#f7500d;

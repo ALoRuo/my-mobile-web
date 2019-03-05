@@ -1,0 +1,17 @@
+{
+  "head":{
+    "code":"00000000",
+    "msg":"成功",
+    "time":"2016-11-15 15:29:32",
+    "status":"Y"
+  },
+  "body":[{
+    "productName":"亿企代账",
+    "productCode":"17-dz",
+    "id":"001"
+  },{
+    "productName":"云审计",
+    "productCode":"something",
+    "id":"002"
+  }]
+}

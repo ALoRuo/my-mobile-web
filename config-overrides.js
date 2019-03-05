@@ -7,7 +7,10 @@ module.exports = function override(config, env) {
     config = injectBabelPlugin(['import', { libraryName: 'antd-mobile', style: 'css' }], config);
     config.resolve.alias = {
         '@': resolve('src'),
-        'styles':resolve('src/styles')
+        'styles':resolve('src/styles'),
+        'components':resolve('src/component'),
+        'utils':resolve('src/utils'),
+        'models':resolve('src/models')
     };
     return config;
 };

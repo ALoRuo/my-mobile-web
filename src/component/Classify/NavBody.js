@@ -1,6 +1,7 @@
 import React from "react";
 import { Flex } from 'antd-mobile';
 import {classifyTypeConfig} from './classifyTypeConfig.js'
+import history from 'utils/HistoryRedirection'
 export default class MainView extends React.Component {
     constructor(props) {
         super(props);
@@ -18,6 +19,7 @@ export default class MainView extends React.Component {
     }
     handleChange = (showType,index) => {
         console.log(showType,index)
+        history.push(`/productlist/${index}`)
     }
     render(){
         let {showType} = this.state;
