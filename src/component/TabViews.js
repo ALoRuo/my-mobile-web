@@ -79,13 +79,11 @@ export default class MainView extends React.Component {
                             />
                             }
                             selected={this.state.selectedTab === 'blueTab'}
-                            badge={1}
                             onPress={() => {
                                 this.setState({
                                     selectedTab: 'blueTab',
                                 });
                             }}
-                            data-seed="logId"
                         >
                             <ListViewContent />
                         </TabBar.Item>
@@ -106,14 +104,12 @@ export default class MainView extends React.Component {
                             }
                             title="分类"
                             key="classify"
-                            badge={'new'}
                             selected={this.state.selectedTab === 'classify'}
                             onPress={() => {
                                 this.setState({
                                     selectedTab: 'classify',
                                 });
                             }}
-                            data-seed="logId1"
                         >
                             <ClassifyView/>
                         </TabBar.Item>
@@ -134,7 +130,6 @@ export default class MainView extends React.Component {
                             }
                             title="购物车"
                             key="shoppingCart"
-                            dot
                             selected={this.state.selectedTab === 'shoppingCart'}
                             onPress={() => {
                                 this.setState({

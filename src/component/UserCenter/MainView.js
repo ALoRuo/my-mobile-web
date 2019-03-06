@@ -1,19 +1,29 @@
 import React from "react";
 import 'styles/userCenter.scss'
 import { Icon } from 'antd-mobile';
+import history from 'utils/HistoryRedirection'
 export default class MainView extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            // loginSuccess:false
+        }
+    }
+    componentDidMount(){
+        if(!test.loginSuccess){
+            history.push('/login')
+        }
     }
     render(){
+        // let {loginSuccess} = this.state;
         return(
             <div className="user-content">
                 <div className="user-header">
                     <div className='user-header-pic'></div>
                     <div className='user-header-name'>
-                        <p>Winder</p>
-                        <p>黄金会员</p>
+                        {
+                            test.loginSuccess?(<div><p>Winder</p><p>黄金会员</p></div>):<p>请先登录</p>
+                        }
                     </div>
                 </div>
                 <div style={{display:"flex",padding: '8px 0',borderBottom: '1px solid #ccc',background:'#fff'}}>

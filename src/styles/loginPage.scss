@@ -1,0 +1,24 @@
+@import "common";
+.login-page{
+  .am-list-item {
+    .am-input-clear{
+      width: 12px;
+      height: 12px;
+      background-size: 10px auto;
+    }
+    .am-input-label{
+      font-size: 14px;
+      color:#333;
+    }
+    input{
+      font-size: 12px;
+    }
+  }
+  .am-button{
+    height: 35px;
+    line-height: 35px;
+    width: 62%;
+    margin: 0 auto;
+    border-radius: 23px;
+  }
+}

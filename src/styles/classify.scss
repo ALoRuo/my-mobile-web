@@ -138,4 +138,49 @@
     align-items: stretch;
     padding: 0px 3% 3%;
   }
+  .my-drawer {
+    position: absolute;
+    top:80px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .my-drawer .am-drawer-sidebar {
+    background-color: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .my-drawer .am-drawer-sidebar .am-list {
+    width: 300px;
+    padding: 0;
+  }
+  .select-drawer{
+    .sub-title {
+      color: #888;
+      font-size: 13px;
+      padding: 30px 0 18px 0;
+      margin-left: 4%;
+    }
+    .select-drawer-item{
+      width: 70%;
+      margin: 0 auto;
+      text-align: center;
+      padding: 6px 0;
+      border-radius: 12px;
+      font-size: 12px;
+      background: #ececec;
+      color: #666;
+    }
+    .drawer-button{
+      display: inline-block;
+      font-size: 12px;
+      border-radius: 12px;
+      padding: 4px 15px;
+      border: 1px solid rgb(124, 179, 124);
+    }
+    .drawer-button:last-child{
+      background: $themeColor;
+      color: #fff;
+      margin-right: 4%;
+    }
+  }
 }
