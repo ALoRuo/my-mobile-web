@@ -4,7 +4,7 @@ import ListViewContent from './ListViewContent'
 import ClassifyView from './Classify/ClassifyView'
 import UserCenter from './UserCenter/MainView'
 import ShoppingCart from './ShoppingCart/MainView'
-// import '../styles/tabView.scss'
+import home1 from '../images/home-1.png'
 
 export default class MainView extends React.Component {
     constructor(props) {
@@ -69,7 +69,7 @@ export default class MainView extends React.Component {
                             icon={<div style={{
                                 width: '22px',
                                 height: '22px',
-                                background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat' }}
+                                background: `url(${home1}) center center /  21px 21px no-repeat` }}
                             />
                             }
                             selectedIcon={<div style={{

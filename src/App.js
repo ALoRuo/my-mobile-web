@@ -6,6 +6,7 @@ import MainView from 'components/MainView'
 import Payment from 'components/Payment/MainView'
 import PaySuccess from 'components/Payment/PaySuccess'
 import ProductList from 'components/Classify/ProductList'
+import ProductItem from 'components/Classify/ProductItem'
 import Login from 'components/Login'
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
             <Route path='/payment' component={Payment}/>
             <Route path='/payresult' component={PaySuccess}/>
             <Route path='/productlist/:id' component={ProductList}/>
+            <Route path='/productitem/:name/:id' component={ProductItem}/>
             <Route path='/login' component={Login}/>
           </Switch>
         </Router>

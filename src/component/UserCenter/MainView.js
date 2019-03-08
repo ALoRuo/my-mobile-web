@@ -1,6 +1,6 @@
 import React from "react";
 import 'styles/userCenter.scss'
-import { Icon } from 'antd-mobile';
+import { List ,WhiteSpace} from 'antd-mobile';
 import history from 'utils/HistoryRedirection'
 export default class MainView extends React.Component {
     constructor(props) {
@@ -40,7 +40,9 @@ export default class MainView extends React.Component {
                         <p className="green-number">100</p>
                     </div>
                 </div>
+                <WhiteSpace size="md" />
                 <div className='user-shopping'>
+
                     <div className='percent-20'>我的订单</div>
                     <div className='percent-20'>待付款</div>
                     <div className='percent-20'>待收货</div>
@@ -51,16 +53,17 @@ export default class MainView extends React.Component {
                     <div className='percent-25'>专题</div>
                     <div className='percent-25'>话题</div>
                 </div>
-                <div className='user-message'>
-                    <p>我的足迹 </p>
-                    <p>我的评价 </p>
-                    <p>地址管理 </p>
-                </div>
-                <div className='user-setting'>
-                    <p>我的会员 </p>
-                    <p>服务中心 </p>
-                    <p>系统设置 </p>
-                </div>
+                <WhiteSpace size="md" />
+                <List style={{ backgroundColor: 'white',marginBottom:10 }} className="picker-list">
+                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>我的足迹</span></List.Item>
+                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>我的评价</span></List.Item>
+                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>地址管理</span></List.Item>
+                </List>
+                <List style={{ backgroundColor: 'white',marginBottom:10 }} className="picker-list">
+                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>我的会员</span></List.Item>
+                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>服务中心</span></List.Item>
+                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>系统设置</span></List.Item>
+                </List>
             </div>
         )
     }
