@@ -189,8 +189,10 @@
   .select-bar {
     display:flex;
     display:-webkit-flex;
-    margin-top: 45px;
+    //margin-top: 45px;
     line-height: 35px;
+    position: relative;
+    top: 45px;
     height: 35px;
     font-size: 12px;
     color: #666;
@@ -238,7 +240,56 @@
       }
     }
   }
-
+  .shop-introduce{
+    background: #fff;
+    box-sizing: border-box;
+    padding: 10px;
+    .shop-pic{
+      height: 80px;
+      width: 80px;
+      border: 1px solid #ccc;
+      flex: 1 1;
+    }
+    .shop-name{
+      font-size: 12px;
+      flex: 1 1;
+      margin-top: -46px;
+      color: #000;
+      padding-left: 10px;
+    }
+    .shop-name + div{
+      span:nth-child(1){
+        padding: 2px 10px;
+        font-size: 12px;
+        border: 1px solid #f7500d;
+        border-radius: 12px;
+        margin-right: 4px;
+        color: #f7500d;
+      }
+      span:nth-child(2){
+        padding: 2px 10px;
+        font-size: 12px;
+        background: #f7500d;
+        border: 1px solid #f7500d;
+        border-radius: 12px;
+        color: #fff;
+        margin-right: 4px;
+      }
+    }
+  }
+  .product-introduce{
+    &>div:nth-child(1){
+      color: #666;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      font-size: 12px;
+    }
+    .content {
+      padding: 10px 0;
+      background: #fff;
+    }
+  }
 }
 .service-sub-title{
   text-align: center;

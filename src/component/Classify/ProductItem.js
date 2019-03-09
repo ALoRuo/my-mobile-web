@@ -12,13 +12,48 @@ export default class MainView extends React.Component {
             imgHeight: 200,
         };
     }
+    /*
+    定义锚点直接跳转
+    * */
+    scrollToAnchor = (anchorName) => {
+        if (anchorName) {
+            let anchorElement = document.getElementById(anchorName);
+            if (anchorElement) {
+                anchorElement.scrollIntoView();
+            }
+        }
+    }
     handleSelect = (value) => {
         this.setState({
             selectedTab:value
-        })
+        });
+        if(value === 'detail'){
+            this.scrollToAnchor('productIntroduce');
+        }else if(value === 'assess'){
+            this.scrollToAnchor('assessPart');
+        }
     }
     handleScroll = (e) => {
-        console.log(e)
+        // console.log(this.refs.scrollDiv.scrollTop)
+        //滚动条的高度
+        let scrollTop = this.refs.scrollDiv.scrollTop;
+        if(scrollTop >= 490 && scrollTop <= 540){
+            this.setState({
+                selectedTab:'assess'
+            })
+        }else if(scrollTop > 520){
+            this.setState({
+                selectedTab:'detail'
+            })
+        }else{
+            this.setState({
+                selectedTab:'product'
+            })
+        }
+    }
+    goToAssess = ()=>{
+        history.push(`/productitem/${this.props.match.params.productname}/assess`)
+        // console.log(this.props.match.params.productname)
     }
     showActionSheet = (type) => {
         const serviceMessage = (
@@ -89,7 +124,7 @@ export default class MainView extends React.Component {
                     <div className={'select-bar-item '+ (selectedTab === 'detail'?'select-active':'')} onClick={()=>this.handleSelect('detail')}>详情</div>
                     {/*<div className={'select-bar-item '+ (selectedTab === 'selectTab'?'select-active':null)} onClick={()=>this.handleSelect('selectTab')} >筛选</div>*/}
                 </div>
-                <div onScroll={this.handleScroll} style={{overflow:'auto',height:window.innerHeight-135}}>
+                <div onScroll={this.handleScroll} style={{overflow:'auto',height:window.innerHeight-135,position:'relative',top:45}} ref='scrollDiv'>
                     <Carousel
                         autoplay={false}
                         infinite
@@ -129,6 +164,55 @@ export default class MainView extends React.Component {
                         <List.Item arrow="horizontal"  onClick={()=>this.showActionSheet('service')}><div><span style={{fontSize:12,color:'#666',marginRight:20}}>服务</span><span style={{color:'#000',fontSize:12}}>订单险.支持7天无理由</span></div></List.Item>
                         <List.Item arrow="horizontal" onClick={()=>this.showActionSheet('arg')}><span style={{fontSize:12,color:'#666'}}>参数</span></List.Item>
                     </List>
+                    <WhiteSpace size="md" />
+                    <List style={{ backgroundColor: 'white',marginBottom:10 }} className="picker-list" id='assessPart'>
+                        <List.Item arrow="horizontal" onClick={this.goToAssess}><div><span style={{fontSize:12,color:'#666',float:'left'}}>宝贝评价（3）</span><span style={{fontSize:12,color:'#f7500d',float:'right'}}>查看全部</span></div></List.Item>
+                    </List>
+                    <WhiteSpace size="md" />
+                    <div className='shop-introduce'>
+                        <div style={{textAlign:'center'}}>品牌信息</div>
+                        <div style={{display:'flex',alignItems:'center'}}>
+                            <div className="shop-pic"></div>
+                            <div className='shop-name' style={{fontSize:12}}>维多利亚的秘密</div>
+                            <div style={{flex:'2 1',textAlign:'right'}}>
+                                <span style={{}}>全部宝贝</span>
+                                <span>进店逛逛</span>
+                            </div>
+                        </div>
+                    </div>
+                    <WhiteSpace size="md" />
+                    <div className='product-introduce' id='productIntroduce'>
+                        <div>—————— 宝贝详情 ——————</div>
+                        <div className='content'>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                            <div>呵呵呵呵呵呵呵呵呵呵呵呵或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或</div>
+                        </div>
+
+                    </div>
                 </div>
 
                 <WhiteSpace size="lg" />
@@ -138,6 +222,8 @@ export default class MainView extends React.Component {
                     <div style={{flex:'2 1',color:'#fff',background:'#7cb37c',fontSize:14}}>加入购物车</div>
                     <div style={{flex:'2 1',color:'#fff',background:'#f7500d',fontSize:14}}>立即购买</div>
                 </div>
+                <WhiteSpace size="lg" />
+
             </div>
         )
     }
