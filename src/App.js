@@ -13,9 +13,6 @@ import Login from 'components/Login'
 class App extends Component {
   render() {
     return (
-        //<div className="App">
-        //                 <MainView/>
-        //             </div>
         <Router history={history}>
           <Switch>
             <Route exact path="/" component={MainView}/>
@@ -23,7 +20,7 @@ class App extends Component {
             <Route path='/payresult' component={PaySuccess}/>
             <Route path='/productlist/:id' component={ProductList}/>
             <Route path='/productitem/:productname/:id' component={ProductItem}/>
-            <Route path='/productitem/:productname/assess' component={AssessView}/>
+            <Route path='/assess/:productname' component={AssessView}/>
             <Route path='/login' component={Login}/>
           </Switch>
         </Router>

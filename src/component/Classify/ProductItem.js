@@ -52,7 +52,7 @@ export default class MainView extends React.Component {
         }
     }
     goToAssess = ()=>{
-        history.push(`/productitem/${this.props.match.params.productname}/assess`)
+        history.push(`/assess/${this.props.match.params.productname}`)
         // console.log(this.props.match.params.productname)
     }
     showActionSheet = (type) => {
@@ -124,6 +124,7 @@ export default class MainView extends React.Component {
                     <div className={'select-bar-item '+ (selectedTab === 'detail'?'select-active':'')} onClick={()=>this.handleSelect('detail')}>详情</div>
                     {/*<div className={'select-bar-item '+ (selectedTab === 'selectTab'?'select-active':null)} onClick={()=>this.handleSelect('selectTab')} >筛选</div>*/}
                 </div>
+
                 <div onScroll={this.handleScroll} style={{overflow:'auto',height:window.innerHeight-135,position:'relative',top:45}} ref='scrollDiv'>
                     <Carousel
                         autoplay={false}

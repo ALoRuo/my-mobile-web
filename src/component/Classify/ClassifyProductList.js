@@ -15,9 +15,7 @@ export default class MainView extends React.Component {
     componentDidMount(){
 
     }
-    componentwillreceiveprops(nextProps){
 
-    }
     goToProduct = (name,id) => {
         history.push(`/productitem/${name}/${id}`)
     }

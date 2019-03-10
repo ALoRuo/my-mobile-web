@@ -315,3 +315,66 @@
     }
   }
 }
+//评价页面
+.assess-view{
+  background: $background-color;
+  .select-bar{
+    background-color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 45px;
+    position: relative;
+    top: 45px;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+    .active{
+      color:$priceColor;
+    }
+    div{
+      flex:1 1;
+      text-align: center;
+      color: #666;
+      font-size: 12px;
+    }
+  }
+  .assess-content{
+    background-color: #fff;
+    position: relative;
+    top: 55px;
+    overflow: auto;
+    .assess-item{
+      padding:8px 3px;
+      .customer-pic{
+        width:30px;
+        height: 30px;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        float: left;
+        margin-right: 5px;
+      }
+      .customer-info{
+        .customer-name{
+          font-size: 12px;
+        }
+        .product-info{
+          color:#999;
+        }
+        margin-bottom:5px;
+      }
+      .pic-assess{
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+        .pic-item{
+          height: 100px;
+          width: 100px;
+          margin: 5px;
+          background-size: cover;
+        }
+      }
+    }
+
+  }
+}
