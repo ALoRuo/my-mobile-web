@@ -1,0 +1,62 @@
+@import "common";
+.order-list-view{
+  background-color: $background-color;
+  overflow: hidden;
+  .select-nav{
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    margin-top: 45px;
+    height: 40px;
+    line-height: 40px;
+    p{
+      flex: 1 1;
+      text-align: center;
+    }
+    .active{
+      color: $priceColor;
+      border-bottom: 2px solid $priceColor;
+    }
+  }
+  .order-list-content{
+    margin-top: 20px;
+    height: calc(100% - 115px);
+    overflow: auto;
+    padding: 0 10px;
+    .order-item{
+      background-color: #fff;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      padding: 0 6px 6px;
+      .order-item-content{
+        display:-webkit-box;
+        display:-ms-flexbox;
+        display:flex;
+        height: 20%;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        .pic{
+          flex: 1 1;
+        }
+      }
+    }
+    .bottom-button{
+      position: absolute;
+      top:50%;
+      right: 10px;
+      transform: translateY(-50%);
+      .black-button{
+        border:1px solid #333;
+        padding: 2px 5px;
+        border-radius: 4px;
+        margin-right: 4px;
+      }
+      .orange-button{
+        border:1px solid $priceColor;
+        color:$priceColor;
+        padding: 2px 5px;
+        border-radius: 4px;
+      }
+    }
+  }
+}
