@@ -27,6 +27,18 @@ a{
   -webkit-box-sizing:border-box;
   box-sizing:border-box;
 }
+//省略至两行
+.text-ellipsis{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+}
+
+
 //公共边样式
 $border-style-color: #ccc;
 $border-style: solid 1px $border-style-color;

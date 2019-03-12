@@ -3,6 +3,6 @@ import axiosHttp from 'utils/axiosHttp'
 export default {
     //mock数据
     test(param){
-        return axiosHttp.get(API.TEST, param);
+        return axiosHttp.get('http://120.78.200.79:9990/productCategory/list/0', param);
     }
 }

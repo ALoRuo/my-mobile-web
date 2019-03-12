@@ -32,7 +32,7 @@ export default class MainView extends React.Component {
         this.setState(state);
     };
     payResult = () => {
-        history.push('/payresult')
+        history.push('/payview')
     }
 
     render(){

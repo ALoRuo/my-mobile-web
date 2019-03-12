@@ -96,7 +96,21 @@
       vertical-align: middle;
       margin-top: 12px;
       margin-bottom: 12px;
-      color: #7cb37c;
+      span{
+        color: #7cb37c;
+      }
+    }
+  }
+}
+.try-to-pay{
+  background: $background-color;
+  .pay-view-top{
+    margin-top: 45px;
+    background: #fff;
+    margin-bottom: 10px;
+    p{
+      text-align: center;
+      color: #999;
     }
   }
 }

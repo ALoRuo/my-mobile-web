@@ -19,7 +19,7 @@ export default class MainView extends React.Component {
                     mode="light"
                     icon={<Icon type="left" color={'#7cb37c'} size={'lg'}/>}
                     onLeftClick={() => history.go(-1)}
-                >支付订单</NavBar>
+                >支付成功</NavBar>
                 <div className="result-example">
                     <Result
                         img={myImg('https://gw.alipayobjects.com/zos/rmsportal/pdFARIqkrKEGVVEwotFe.svg')}
