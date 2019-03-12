@@ -81,6 +81,9 @@
     width:100%;
     border-top:$border-style;
     border-bottom: $border-style;
+    .am-list-item{
+      background-color:inherit;
+    }
     .am-list-item.am-list-item-active{
       background: #fff;
     }

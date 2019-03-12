@@ -25,8 +25,8 @@ export default class MainView extends React.Component {
     //    调接口获取这个用户的购物车数据传参（customerId）,获取数据格式[{productId,productName,productCount}]
     //   测试接口
         model.test({
-            pageSize:1,
-            pageNum:5
+            user_name: "sbgdl",
+            pass_word: 123456
         }).then(res=>console.log(res));
         this.setState({
             dataSource:data,

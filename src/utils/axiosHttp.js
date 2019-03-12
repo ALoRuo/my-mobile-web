@@ -5,9 +5,10 @@ import querystring from 'query-string';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 const request = {
     handleData: function (res, resolve, reject) {
-        let data = res.data;
-        if (data.head && data.head.status === "Y") {
-            resolve(data.body);
+        let result = res.data;
+
+        if (result.code === 200) {
+            resolve(result.data);
         }else {
             // message.destroy();
             // let code = data.head.code,
@@ -18,7 +19,7 @@ const request = {
             //     return;
             // }
             // message.error(errorInfo, 3);
-            reject && reject(data);
+            reject && reject(result);
         }
     },
     post: function (url, params, type) {
