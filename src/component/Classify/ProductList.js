@@ -2,6 +2,7 @@ import React from "react";
 import { InputItem, NavBar, Icon, Drawer, Flex, WhiteSpace, Button } from 'antd-mobile';
 import history from 'utils/HistoryRedirection';
 import ClassifyProductList from './ClassifyProductList'
+import model from 'models/classifyModel'
 
 export default class MainView extends React.Component {
     constructor(props){
@@ -10,7 +11,18 @@ export default class MainView extends React.Component {
             selectInputValue:'',
             selectedTab:'allTab',
             drawerOpen: false,
+            settingData:[],
         }
+    }
+    componentDidMount(){
+        // console.log(this.props.params.id);
+        model.getProductList({
+            pageNum:1,
+            pageSize:5,
+            productCategoryId:this.props.match.params.id
+        }).then(res=>{
+            this.setState({settingData:res.list})
+        })
     }
     onChange= (value) => {
         this.setState({ selectInputValue:value });
@@ -71,7 +83,7 @@ export default class MainView extends React.Component {
         )
     }
     render(){
-        let {selectInputValue,selectedTab,drawerOpen} = this.state;
+        let {selectInputValue,selectedTab,drawerOpen,settingData} = this.state;
         return(
             <div className='product-list'>
                 <NavBar
@@ -94,17 +106,18 @@ export default class MainView extends React.Component {
                     <div className={'select-bar-item '+ (selectedTab === 'priceTab'?'select-active':null)} onClick={()=>this.handleSelect('priceTab')}>价格</div>
                     <div className={'select-bar-item '+ (selectedTab === 'selectTab'?'select-active':null)} onClick={()=>this.handleSelect('selectTab')} >筛选</div>
                 </div>
+
+                {/*</Drawer>*/}
+                <ClassifyProductList settingData={settingData}/>
                 <Drawer
                     className="my-drawer"
-                    style={{ minHeight: document.documentElement.clientHeight-80 }}
+                    style={{ minHeight: document.documentElement.clientHeight-80,display:drawerOpen?'block':'none' }}
                     contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}
                     sidebarStyle={{ border: '1px solid #ddd' }}
                     sidebar={this.renderSideBar()}
-                    open={drawerOpen}
+                    open={true}
                     position='top'
                 />
-                {/*</Drawer>*/}
-                <ClassifyProductList/>
             </div>
         )
     }

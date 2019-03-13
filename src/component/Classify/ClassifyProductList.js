@@ -10,27 +10,36 @@ for(let i =0 ;i<10;i++) {
 export default class MainView extends React.Component {
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            dataSource:[],
+        };
     }
     componentDidMount(){
-
+        console.log(this.props)
     }
-
+    componentWillReceiveProps(nextProps){
+        if(nextProps !== this.props){
+            this.setState({
+                dataSource:nextProps.settingData
+            })
+        }
+    }
     goToProduct = (name,id) => {
         history.push(`/productitem/${name}/${id}`)
     }
     render(){
+        let {dataSource} = this.state;
         return(
             <div style={{height:window.innerHeight-80}}>
                 <Flex className='product-list-flex' wrap='wrap'>
                     {
-                        data.map(item=>{
+                        dataSource.map(item=>{
                             return(
                             <div className='product-list-item' onClick={()=>this.goToProduct(item.productName,item.productId)}>
-                                <div className='item-pic'>pic</div>
+                                <div className='item-pic' style={{backgroundImage:`url(${item.pic})`}}></div>
                                 <div className='item-message'>
-                                    <div >{item.productName}</div>
-                                    <div>￥99</div>
+                                    <div >{item.name}</div>
+                                    <div>￥{item.price}</div>
                                 </div>
 
                             </div>)

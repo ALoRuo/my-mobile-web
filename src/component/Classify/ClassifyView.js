@@ -2,6 +2,7 @@ import React from "react";
 import { Flex, WhiteSpace } from 'antd-mobile';
 import NavBody from './NavBody'
 import 'styles/classify.scss'
+import model from 'models/classifyModel'
 
 const data = [
     {
@@ -105,17 +106,31 @@ const data = [
         ],
     },
 ];
-const navBarData = ['服装','餐厨','配件','居家'];
+// const navBarData = ['服装','餐厨','配件','居家'];
 export default class MainView extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            selectedValue:0,
+            selectedValue:1,
+            navBarData:[],
         };
+    }
+    componentDidMount(){
+        model.getFirstLevel({
+            pageNum:1,
+            pageSize:5
+        }).then(res=>{
+            let {navBarData} = this.state;
+            res.list.forEach(item=>{
+                navBarData.push(item.name);
+                this.setState({navBarData})
+            })
+        });
+        // console.log(test1)
     }
     linkStyle = (value) => {
         let {selectedValue} = this.state;
-        if(selectedValue === value) {
+        if(selectedValue === value+1) {
             return{
                 background:'#fff'
             }
@@ -132,7 +147,7 @@ export default class MainView extends React.Component {
 
     }
     render(){
-        let {selectedValue} = this.state;
+        let {selectedValue,navBarData} = this.state;
         return(
             <div className='menu-active'>
                 <div className='left-nav-bar'>
@@ -140,7 +155,7 @@ export default class MainView extends React.Component {
                         {
                             navBarData.map((item, index) => {
                                 return <li className='nav-item' style={this.linkStyle(index)}
-                                           onClick={() => this.toggleHover(index)}>{item}</li>
+                                           onClick={() => this.toggleHover(index+1)}>{item}</li>
                             })
                         }
                     </ul>

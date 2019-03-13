@@ -26,10 +26,14 @@ export default class MainView extends React.Component {
             selectTab :'all'
         };
     }
+    componentDidMount(){
+        console.log(this.props)
+    }
     handleChange = (value)=>{
         this.setState({selectTab:value})
     }
     render(){
+        console.log(this.props)
         let {selectTab} = this.state;
         return(<div className='assess-view'>
             <NavBar

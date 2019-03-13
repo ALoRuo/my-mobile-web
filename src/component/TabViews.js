@@ -85,7 +85,8 @@ export default class MainView extends React.Component {
                                 });
                             }}
                         >
-                            <ListViewContent />
+                            {/*<ListViewContent />*/}
+                            首页
                         </TabBar.Item>
                         <TabBar.Item
                             icon={

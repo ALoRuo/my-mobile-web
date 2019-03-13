@@ -2,6 +2,8 @@ import React from "react";
 import 'styles/userCenter.scss'
 import { List ,WhiteSpace} from 'antd-mobile';
 import history from 'utils/HistoryRedirection'
+import model from 'models/userCenterModel';
+
 export default class MainView extends React.Component {
     constructor(props) {
         super(props);
@@ -10,9 +12,10 @@ export default class MainView extends React.Component {
         }
     }
     componentDidMount(){
-        if(!test.loginSuccess){
-            history.push('/login')
-        }
+        // if(!commInfo.loginSuccess){
+        //     history.push('/login')
+        // }
+        console.log(test)
     }
     render(){
         // let {loginSuccess} = this.state;
@@ -21,9 +24,9 @@ export default class MainView extends React.Component {
                 <div className="user-header">
                     <div className='user-header-pic'></div>
                     <div className='user-header-name'>
-                        {
-                            test.loginSuccess?(<div><p>Winder</p><p>黄金会员</p></div>):<p>请先登录</p>
-                        }
+                        {/*{*/}
+                            {/*commInfo.loginSuccess?(<div><p>Winder</p><p>黄金会员</p></div>):<p>请先登录</p>*/}
+                        {/*}*/}
                     </div>
                 </div>
                 <div style={{display:"flex",padding: '8px 0',borderBottom: '1px solid #ccc',background:'#fff'}}>
