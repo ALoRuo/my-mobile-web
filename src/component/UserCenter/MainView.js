@@ -15,7 +15,7 @@ export default class MainView extends React.Component {
         // if(!commInfo.loginSuccess){
         //     history.push('/login')
         // }
-        console.log(test)
+        // console.log(test)
     }
     render(){
         // let {loginSuccess} = this.state;
