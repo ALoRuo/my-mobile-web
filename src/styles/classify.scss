@@ -184,8 +184,30 @@
     }
   }
 }
+//商品详情页面
 .product-list-item{
   background: $background-color;
+  .hidden{
+    transform: translateY(45px);
+  }
+  .show{
+    transform: translateY(-305px);
+  }
+  .mask{
+    position: absolute;
+    height: calc(100% - 90px);
+    width: 100%;
+    top: 45px;
+    background: rgba(0,0,0,.5);
+  }
+  .sure-to-add{
+    color: #fff;
+    background: #f7500d;
+    padding: 8px 0;
+    text-align: center;
+    border-radius: 20px;
+    font-size: 16px;
+  }
   .select-bar {
     display:flex;
     display:-webkit-flex;
@@ -378,3 +400,25 @@
 
   }
 }
+.add-shopping{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding-right: 30px;
+  margin-bottom: 10px;
+  .add-shopping-select-item{
+    margin: 6px;
+    background: #ececec;
+    border-radius: 10px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 12px;
+    padding: 0 12px;
+  }
+  .selected{
+    border:1px solid $priceColor;
+    color: $priceColor;
+  }
+
+}
+

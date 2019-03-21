@@ -13,22 +13,12 @@ export default class MainView extends React.Component {
             selectedTab: 'blueTab',
         }
     }
-    renderContent(pageText) {
-        return (
-            <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
-                <div style={{ paddingTop: 60 }}>Clicked “{pageText}” tab， show “{pageText}” information</div>
-                <a style={{ display: 'block', marginTop: 40, marginBottom: 20, color: '#108ee9' }}
-                   onClick={(e) => {
-                       e.preventDefault();
-                       this.setState({
-                           hidden: !this.state.hidden,
-                       });
-                   }}
-                >
-                    Click to show/hide tab-bar
-                </a>
-            </div>
-        );
+    componentDidMount(){
+        console.log(1)
+    }
+    //传给子级用来控制父级state
+    handleStateChange = (newState) => {
+        this.setState(newState);
     }
     render(){
         const {selectedTab} = this.state;
@@ -66,18 +56,8 @@ export default class MainView extends React.Component {
                         <TabBar.Item
                             title="首页"
                             key="homePage"
-                            icon={<div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: `url(${home1}) center center /  21px 21px no-repeat` }}
-                            />
-                            }
-                            selectedIcon={<div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat' }}
-                            />
-                            }
+                            icon={<i className='iconfont icon-shouye' style={{fontSize:21}}/>}
+                            selectedIcon={<i className='iconfont icon-shouye1' style={{fontSize:21}}/>}
                             selected={this.state.selectedTab === 'blueTab'}
                             onPress={() => {
                                 this.setState({
@@ -89,20 +69,8 @@ export default class MainView extends React.Component {
                             首页
                         </TabBar.Item>
                         <TabBar.Item
-                            icon={
-                                <div style={{
-                                    width: '22px',
-                                    height: '22px',
-                                    background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat' }}
-                                />
-                            }
-                            selectedIcon={
-                                <div style={{
-                                    width: '22px',
-                                    height: '22px',
-                                    background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}
-                                />
-                            }
+                            icon={<i className='iconfont icon-fenlei-' style={{fontSize:21}}/>}
+                            selectedIcon={<i className='iconfont icon-fenlei' style={{fontSize:21}}/>}
                             title="分类"
                             key="classify"
                             selected={this.state.selectedTab === 'classify'}
@@ -115,20 +83,8 @@ export default class MainView extends React.Component {
                             <ClassifyView/>
                         </TabBar.Item>
                         <TabBar.Item
-                            icon={
-                                <div style={{
-                                    width: '22px',
-                                    height: '22px',
-                                    background: 'url(https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg) center center /  21px 21px no-repeat' }}
-                                />
-                            }
-                            selectedIcon={
-                                <div style={{
-                                    width: '22px',
-                                    height: '22px',
-                                    background: 'url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  21px 21px no-repeat' }}
-                                 />
-                            }
+                            icon={<i className='iconfont icon-gouwuche2' style={{fontSize:21}}/>}
+                            selectedIcon={<i className='iconfont icon-gouwuche1' style={{fontSize:21}}/>}
                             title="购物车"
                             key="shoppingCart"
                             selected={this.state.selectedTab === 'shoppingCart'}
@@ -141,8 +97,8 @@ export default class MainView extends React.Component {
                             <ShoppingCart/>
                         </TabBar.Item>
                         <TabBar.Item
-                            icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-                            selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
+                            icon={<i className='iconfont icon-zelvgongyongyonghuzhongxinz003' style={{fontSize:21}}/>}
+                            selectedIcon={<i className='iconfont icon-zelvgongyongyonghuzhongxinz003' style={{fontSize:21,color:'#33a3f4'}}/>}
                             title="我的"
                             key="userMessage"
                             selected={this.state.selectedTab === 'userMessage'}
@@ -152,7 +108,7 @@ export default class MainView extends React.Component {
                                 });
                             }}
                         >
-                            <UserCenter/>
+                            <UserCenter handleStateChange={this.handleStateChange}/>
                         </TabBar.Item>
                     </TabBar>
                 </div>

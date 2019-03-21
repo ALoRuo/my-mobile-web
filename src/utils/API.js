@@ -8,4 +8,8 @@ export default {
     SECOND_LEVEL_CLASSIFY:prefixed+'productCategory/list',
     //获取商品列表
     GET_PRODUCT_LIST:prefixed+'product/list',
+    //显示购物车
+    GET_SHOPPING_CART_LIST:prefixed+'cart/getCartList',
+    //加入购物车
+    ADD_SHOPPING_CART:prefixed+'cart/add',
 }

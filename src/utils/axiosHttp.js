@@ -54,7 +54,12 @@ const request = {
         let _this = this;
         //不需要传参数时 param传{}
         return new Promise((resolve, reject) => {
-            axios.get(url,{params:{...param}}).then((res) => {
+            axios.get(url,{
+                headers:{
+
+                },
+                params:{...param}
+            }).then((res) => {
                 _this.handleData(res, resolve, reject);
             })
         })
