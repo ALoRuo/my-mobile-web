@@ -2,7 +2,7 @@ import React from "react";
 import { WhiteSpace, NavBar, Icon, Carousel, ActionSheet, List, Flex } from 'antd-mobile';
 import history from 'utils/HistoryRedirection';
 import 'styles/classify.scss';
-import model from 'models/shoppingCartModel'
+import model from 'models/classifyModel'
 
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let wrapProps;
@@ -19,10 +19,18 @@ export default class MainView extends React.Component {
             data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
             imgHeight: 200,
             show:false,
+            dataSource:{
+                ppa:{}
+            },
         };
     }
     componentDidMount(){
         //由于路由根据url生成组件，所以每次进来都是重新生成就会进入componentDidMount
+        model.getProductDetail({id:this.props.match.params.id}).then(res=>{
+            this.setState({
+                dataSource:res
+            })
+        })
         console.log(111)
     }
     /*
@@ -204,7 +212,7 @@ export default class MainView extends React.Component {
             });
     }
     render(){
-        let {selectedTab,imgHeight,show} = this.state;
+        let {selectedTab,imgHeight,show,dataSource} = this.state;
         const SY = [
             {
                 title:'颜色',
@@ -214,6 +222,9 @@ export default class MainView extends React.Component {
                 select:['s','m','l','xl','xs']
             }
         ];
+        let {price,detailTitle,sale,stock,brandName,ppa} = dataSource;
+        let sizeList =dataSource.ppa.inputList?dataSource.ppa.inputList.split(','):[];
+        console.log(sizeList)
         return(
             <div className='product-list-item' style={{height:window.innerHeight,paddingBottom:10}} >
                 <NavBar
@@ -258,11 +269,11 @@ export default class MainView extends React.Component {
                         ))}
                     </Carousel>
                     <div className='introduce-product'>
-                        <div className='introduce-product-price'>￥175</div>
-                        <div className='introduce-product-name'>{this.props.match.params.name}</div>
+                        <div className='introduce-product-price'>￥{price}</div>
+                        <div className='introduce-product-name'>{detailTitle}</div>
                         <div className='introduce-product-other'>
                             <div>快递：包邮</div>
-                            <div>月销2</div>
+                            <div>月销{sale}</div>
                             <div>上海</div>
                         </div>
                     </div>
@@ -280,7 +291,7 @@ export default class MainView extends React.Component {
                         <div style={{textAlign:'center'}}>品牌信息</div>
                         <div style={{display:'flex',alignItems:'center'}}>
                             <div className="shop-pic"></div>
-                            <div className='shop-name' style={{fontSize:12}}>维多利亚的秘密</div>
+                            <div className='shop-name' style={{fontSize:12}}>{brandName}</div>
                             <div style={{flex:'2 1',textAlign:'right'}}>
                                 <span style={{}}>全部宝贝</span>
                                 <span>进店逛逛</span>
@@ -339,13 +350,13 @@ export default class MainView extends React.Component {
                                 color:'#f7500d',
                                 marginBottom:10,
                                 fontWeight: '500'
-                            }}>￥99</p>
+                            }}>￥{price}</p>
                             <p style={{
                                 fontSize: 12,
                                 textAlign: 'left',
                                 color:'#999',
                                 marginBottom:20
-                            }}>库存9999件</p>
+                            }}>库存{stock}件</p>
                             <p style={{
                                 fontSize: 12,
                                 textAlign: 'left',
@@ -355,7 +366,7 @@ export default class MainView extends React.Component {
                         </div>
                     </div>
                     {
-                        SY.map((item,index)=>{
+                        sizeList.map((item,index)=>{
                             return <div className='add-shopping'>
                                 <div style={{width:'100%',color:'#333',textAlign:'left'}}>{item.title}</div>
                                 {

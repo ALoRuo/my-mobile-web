@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { WhiteSpace, InputItem, Button, NavBar, Icon, Modal } from 'antd-mobile';
 import 'styles/loginPage.scss'
 import model from 'models/loginModel';
@@ -21,6 +22,9 @@ export default class MainView extends React.Component {
         }).then(res=>{
            window.commInfo.loginSuccess = true;
            window.commInfo.userName = res.userName;
+
+            // axios.defaults.headers.common['token'] = `${res.userId}_${res.token}`;
+           // window.commInfo.token=`${res.userId}_${res.token}`
            history.push('/')
         },error=>{
             alert('',<span>{error.errMsge}</span>, [

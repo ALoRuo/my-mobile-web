@@ -13,5 +13,9 @@ export default {
     //获取商品列表
     getProductList(param){
         return axiosHttp.get(API.GET_PRODUCT_LIST, param);
+    },
+    //获取商品详情
+    getProductDetail(param){
+        return axiosHttp.get(API.GET_PRODUCT_DETAIL, param,'json');
     }
 }

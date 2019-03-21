@@ -28,6 +28,7 @@ const request = {
         if (type && type === "json") {
             config = {
                 headers: {
+                    // token:window.commInfo.token,
                     post: {
                         'Content-Type': 'application/json'
                     }
@@ -36,6 +37,7 @@ const request = {
         } else if (type && type === "file") {
             config = {
                 headers: {
+                    // token:window.commInfo.token,
                     post: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -50,15 +52,34 @@ const request = {
             })
         })
     },
-    get: function (url,param) {
-        let _this = this;
+    get: function (url,params,type) {
+        let _this = this,config = {};
         //不需要传参数时 param传{}
         return new Promise((resolve, reject) => {
+            if (type && type === "json") {
+                config = {
+                    headers: {
+                        // token:window.commInfo.token,
+                        post: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                }
+            } else if (type && type === "file") {
+                config = {
+                    headers: {
+                        // token:window.commInfo.token,
+                        post: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                }
+            } else {
+                params = params;
+            }
             axios.get(url,{
-                headers:{
-
-                },
-                params:{...param}
+                config,
+                params:{...params}
             }).then((res) => {
                 _this.handleData(res, resolve, reject);
             })
