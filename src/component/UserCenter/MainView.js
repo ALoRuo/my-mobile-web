@@ -12,10 +12,10 @@ export default class MainView extends React.Component {
         }
     }
     componentDidMount(){
-        // if(!commInfo.loginSuccess){
-        //     history.push('/login')
-        // }
-        console.log(test)
+        if(!window.commInfo.loginSuccess){
+            history.push('/login')
+        }
+        // console.log(test)
     }
     render(){
         // let {loginSuccess} = this.state;
@@ -24,9 +24,9 @@ export default class MainView extends React.Component {
                 <div className="user-header">
                     <div className='user-header-pic'></div>
                     <div className='user-header-name'>
-                        {/*{*/}
-                            {/*commInfo.loginSuccess?(<div><p>Winder</p><p>黄金会员</p></div>):<p>请先登录</p>*/}
-                        {/*}*/}
+                        {
+                            window.commInfo.loginSuccess?(<div><p>{window.commInfo.userName}</p><p>黄金会员</p></div>):<p>请先登录</p>
+                        }
                     </div>
                 </div>
                 <div style={{display:"flex",padding: '8px 0',borderBottom: '1px solid #ccc',background:'#fff'}}>

@@ -1,8 +1,16 @@
 import React from "react";
-import { WhiteSpace, NavBar, Icon, Carousel, ActionSheet, List, Picker } from 'antd-mobile';
+import { WhiteSpace, NavBar, Icon, Carousel, ActionSheet, List, Flex } from 'antd-mobile';
 import history from 'utils/HistoryRedirection';
-import 'styles/classify.scss'
+import 'styles/classify.scss';
+import model from 'models/shoppingCartModel'
 
+const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
+let wrapProps;
+if (isIPhone) {
+    wrapProps = {
+        onTouchStart: e => e.preventDefault(),
+    };
+}
 export default class MainView extends React.Component {
     constructor(props){
         super(props);
@@ -10,7 +18,12 @@ export default class MainView extends React.Component {
             selectedTab:'product',
             data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
             imgHeight: 200,
+            show:false,
         };
+    }
+    componentDidMount(){
+        //由于路由根据url生成组件，所以每次进来都是重新生成就会进入componentDidMount
+        console.log(111)
     }
     /*
     定义锚点直接跳转
@@ -22,6 +35,90 @@ export default class MainView extends React.Component {
                 anchorElement.scrollIntoView();
             }
         }
+    }
+    //加入购物车
+    addShoppingCart = () => {
+        // const SY = [
+        //     {
+        //         title:'颜色',
+        //         select:['红色','粉色','黑色','白色','蓝色','灰色']
+        //     }, {
+        //        title:'尺寸',
+        //         select:['s','m','l','xl','xs']
+        //     }
+        // ];
+        // const message = (
+        //     <div style={{minHeight:300}}>
+        //         <div style={{overflow:'hidden'}}>
+        //             <div style={{float:'left',width:'28%',marginBottom:20}}>
+        //                 <div style={{width:'100%',paddingBottom:'100%',border:'1px solid #ccc',borderRadius:4}}></div>
+        //             </div>
+        //             <div style={{
+        //                 width: '72%',
+        //                 float: 'left',
+        //                 paddingLeft: 10,
+        //                 paddingTop: 10,
+        //             }}>
+        //                 <p style={{
+        //                     fontSize: 18,
+        //                     textAlign: 'left',
+        //                     color:'#f7500d',
+        //                     marginBottom:10,
+        //                     fontWeight: '500'
+        //                 }}>￥99</p>
+        //                 <p style={{
+        //                     fontSize: 12,
+        //                     textAlign: 'left',
+        //                     color:'#999',
+        //                     marginBottom:20
+        //                 }}>库存9999件</p>
+        //                 <p style={{
+        //                     fontSize: 12,
+        //                     textAlign: 'left',
+        //                 }}>
+        //                     选择尺寸，颜色分类
+        //                 </p>
+        //             </div>
+        //         </div>
+        //         {
+        //             SY.map((item,index)=>{
+        //                 return <div className='add-shopping'>
+        //                     <div style={{width:'100%',color:'#333',textAlign:'left'}}>{item.title}</div>
+        //                     {
+        //                         item.select.map(selectItem=>{
+        //                             return <div className={this.changeClassName(item.title,selectItem)} onClick={()=>this.handleSelectToAddCar(item.title,selectItem)}>{selectItem}</div>
+        //                         })
+        //                     }
+        //                 </div>
+        //             })
+        //         }
+        //     </div>
+        //
+        // );
+        // ActionSheet.showShareActionSheetWithOptions({
+        //         options: [],
+        //         message:message,
+        //         cancelButtonText:(<div style={{color:'#fff',background:'#7cb37c'}}>确定</div>)
+        //     });
+        let {show} = this.state;
+        this.setState({show:!show})
+    }
+    changeClassName = (type,value) => {
+        console.log(2)
+        let selectValue = this.state[type];
+        if(selectValue !== value){
+            return 'add-shopping-select-item'
+        }else {
+            return 'add-shopping-select-item selected'
+        }
+    }
+    handleSelectToAddCar = (type,value) => {
+        console.log(1);
+        let state = this.state;
+        state[type] = value;
+        this.setState(state,()=>{
+            console.log(this.state)
+        })
     }
     handleSelect = (value) => {
         this.setState({
@@ -107,7 +204,16 @@ export default class MainView extends React.Component {
             });
     }
     render(){
-        let {selectedTab,imgHeight} = this.state;
+        let {selectedTab,imgHeight,show} = this.state;
+        const SY = [
+            {
+                title:'颜色',
+                select:['红色','粉色','黑色','白色','蓝色','灰色']
+            }, {
+                title:'尺寸',
+                select:['s','m','l','xl','xs']
+            }
+        ];
         return(
             <div className='product-list-item' style={{height:window.innerHeight,paddingBottom:10}} >
                 <NavBar
@@ -125,7 +231,7 @@ export default class MainView extends React.Component {
                     {/*<div className={'select-bar-item '+ (selectedTab === 'selectTab'?'select-active':null)} onClick={()=>this.handleSelect('selectTab')} >筛选</div>*/}
                 </div>
 
-                <div onScroll={this.handleScroll} style={{overflow:'auto',height:window.innerHeight-135,position:'relative',top:45}} ref='scrollDiv'>
+                <div onScroll={this.handleScroll} style={{overflow:'auto',height:window.innerHeight-125,position:'relative',top:45}} ref='scrollDiv'>
                     <Carousel
                         autoplay={false}
                         infinite
@@ -165,11 +271,11 @@ export default class MainView extends React.Component {
                         <List.Item arrow="horizontal"  onClick={()=>this.showActionSheet('service')}><div><span style={{fontSize:12,color:'#666',marginRight:20}}>服务</span><span style={{color:'#000',fontSize:12}}>订单险.支持7天无理由</span></div></List.Item>
                         <List.Item arrow="horizontal" onClick={()=>this.showActionSheet('arg')}><span style={{fontSize:12,color:'#666'}}>参数</span></List.Item>
                     </List>
-                    <WhiteSpace size="md" />
+                    {/*<WhiteSpace size="md" />*/}
                     <List style={{ backgroundColor: 'white',marginBottom:10 }} className="picker-list" id='assessPart'>
                         <List.Item arrow="horizontal" onClick={this.goToAssess}><div><span style={{fontSize:12,color:'#666',float:'left'}}>宝贝评价（3）</span><span style={{fontSize:12,color:'#f7500d',float:'right'}}>查看全部</span></div></List.Item>
                     </List>
-                    <WhiteSpace size="md" />
+                    {/*<WhiteSpace size="md" />*/}
                     <div className='shop-introduce'>
                         <div style={{textAlign:'center'}}>品牌信息</div>
                         <div style={{display:'flex',alignItems:'center'}}>
@@ -181,7 +287,7 @@ export default class MainView extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <WhiteSpace size="md" />
+                    {/*<WhiteSpace size="md" />*/}
                     <div className='product-introduce' id='productIntroduce'>
                         <div>—————— 宝贝详情 ——————</div>
                         <div className='content'>
@@ -215,15 +321,61 @@ export default class MainView extends React.Component {
 
                     </div>
                 </div>
-
-                <WhiteSpace size="lg" />
-                <div style={{height:45,display:'flex',position:'fixed',bottom:0,width:'100%',textAlign:'center',lineHeight:'45px',zIndex:100}}>
+                <div className="mask" style={{display:show?'block':'none'}}></div>
+                <div style={{height:350,background:'#fff',padding:'20px 10px'}} className={show?'show':'hidden'}>
+                    <div style={{overflow:'hidden'}}>
+                        <div style={{float:'left',width:'28%',marginBottom:20}}>
+                            <div style={{width:'100%',paddingBottom:'100%',border:'1px solid #ccc',borderRadius:4}}></div>
+                        </div>
+                        <div style={{
+                            width: '72%',
+                            float: 'left',
+                            paddingLeft: 10,
+                            paddingTop: 10,
+                        }}>
+                            <p style={{
+                                fontSize: 18,
+                                textAlign: 'left',
+                                color:'#f7500d',
+                                marginBottom:10,
+                                fontWeight: '500'
+                            }}>￥99</p>
+                            <p style={{
+                                fontSize: 12,
+                                textAlign: 'left',
+                                color:'#999',
+                                marginBottom:20
+                            }}>库存9999件</p>
+                            <p style={{
+                                fontSize: 12,
+                                textAlign: 'left',
+                            }}>
+                                选择尺寸，颜色分类
+                            </p>
+                        </div>
+                    </div>
+                    {
+                        SY.map((item,index)=>{
+                            return <div className='add-shopping'>
+                                <div style={{width:'100%',color:'#333',textAlign:'left'}}>{item.title}</div>
+                                {
+                                    item.select.map(selectItem=>{
+                                        return <div className={this.changeClassName(item.title,selectItem)} onClick={()=>this.handleSelectToAddCar(item.title,selectItem)}>{selectItem}</div>
+                                    })
+                                }
+                            </div>
+                        })
+                    }
+                    <div className='sure-to-add'>确定</div>
+                </div>
+                {/*<WhiteSpace size="lg" />*/}
+                <div style={{height:45,display:'flex',position:'fixed',bottom:0,width:'100%',textAlign:'center',lineHeight:'45px',zIndex:100,background:'#fff'}}>
                     <div style={{flex:'1 1',fontSize:12}}>客服</div>
                     <div style={{flex:'1 1',fontSize:12}}>店铺</div>
-                    <div style={{flex:'2 1',color:'#fff',background:'#7cb37c',fontSize:14}}>加入购物车</div>
+                    <div style={{flex:'2 1',color:'#fff',background:'#7cb37c',fontSize:14}} onClick={this.addShoppingCart}>加入购物车</div>
                     <div style={{flex:'2 1',color:'#fff',background:'#f7500d',fontSize:14}}>立即购买</div>
                 </div>
-                <WhiteSpace size="lg" />
+                {/*<WhiteSpace size="lg" />*/}
 
             </div>
         )

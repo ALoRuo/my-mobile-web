@@ -35,7 +35,7 @@ export default class MainView extends React.Component {
                     {
                         dataSource.map(item=>{
                             return(
-                            <div className='product-list-item' onClick={()=>this.goToProduct(item.productName,item.productId)}>
+                            <div className='product-list-item' onClick={()=>this.goToProduct(item.name,item.id)}>
                                 <div className='item-pic' style={{backgroundImage:`url(${item.pic})`}}></div>
                                 <div className='item-message'>
                                     <div >{item.name}</div>
