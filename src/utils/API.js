@@ -12,4 +12,6 @@ export default {
     GET_SHOPPING_CART_LIST:prefixed+'cart/getCartList',
     //加入购物车
     ADD_SHOPPING_CART:prefixed+'cart/add',
+    //商品详情
+    GET_PRODUCT_DETAIL:prefixed+'product'
 }

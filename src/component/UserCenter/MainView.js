@@ -12,9 +12,11 @@ export default class MainView extends React.Component {
         }
     }
     componentDidMount(){
+
         if(!window.commInfo.loginSuccess){
             history.push('/login')
         }
+
         // console.log(test)
     }
     render(){
