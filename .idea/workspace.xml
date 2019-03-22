@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="000ec30e-f349-4db2-bad7-b9ee8794e216" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/Classify/ClassifyProductList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/Classify/ClassifyProductList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/Classify/ProductItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/Classify/ProductItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/TabViews.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/TabViews.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/UserCenter/MainView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/UserCenter/MainView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/shoppingCartModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/shoppingCartModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/classify.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/classify.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/common.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/common.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/API.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/axiosHttp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/axiosHttp.js" afterDir="false" />
-    </list>
+    <list default="true" id="000ec30e-f349-4db2-bad7-b9ee8794e216" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -28,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="43" column="95" selection-start-line="43" selection-start-column="95" selection-end-line="43" selection-end-column="95" />
+            <state relative-caret-position="486">
+              <caret line="51" column="10" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="51" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -111,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductItem.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ProductItem.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/component/Classify/ProductItem.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="323" column="72" selection-start-line="323" selection-start-column="72" selection-end-line="323" selection-end-column="72" />
+            <state relative-caret-position="507">
+              <caret line="275" column="91" selection-start-line="275" selection-start-column="91" selection-end-line="275" selection-end-column="91" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
                 <element signature="e#16219#16400#0" />
@@ -402,11 +388,11 @@
         <option value="$PROJECT_DIR$/public/manifest.json" />
         <option value="$PROJECT_DIR$/src/component/TabViews.js" />
         <option value="$PROJECT_DIR$/src/styles/common.scss" />
-        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/component/Login.js" />
         <option value="$PROJECT_DIR$/src/utils/axiosHttp.js" />
         <option value="$PROJECT_DIR$/src/styles/classify.scss" />
         <option value="$PROJECT_DIR$/src/component/Classify/ProductItem.js" />
+        <option value="$PROJECT_DIR$/public/index.html" />
       </list>
     </option>
   </component>
@@ -528,12 +514,12 @@
       <updated>1552270772262</updated>
       <workItem from="1552270773481" duration="24205000" />
       <workItem from="1552461305699" duration="15989000" />
-      <workItem from="1552876414491" duration="21479000" />
+      <workItem from="1552876414491" duration="23871000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61673000" />
+    <option name="totallyTimeSpent" value="64065000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -930,13 +916,6 @@
     <entry file="file://$PROJECT_DIR$/src/styles/loginPage.scss">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="43" column="95" selection-start-line="43" selection-start-column="95" selection-end-line="43" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/component/Login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="395">
@@ -1013,14 +992,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/component/Classify/ProductItem.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="323" column="72" selection-start-line="323" selection-start-column="72" selection-end-line="323" selection-end-column="72" />
+        <state relative-caret-position="507">
+          <caret line="275" column="91" selection-start-line="275" selection-start-column="91" selection-end-line="275" selection-end-column="91" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
             <element signature="e#16219#16400#0" />
             <element signature="e#16437#16689#0" />
             <element signature="e#16733#16935#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="51" column="10" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="51" selection-end-column="10" />
         </state>
       </provider>
     </entry>
