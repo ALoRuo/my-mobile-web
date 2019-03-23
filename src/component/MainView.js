@@ -8,6 +8,9 @@ export default class MainView extends React.Component {
 
         }
     }
+    componentDidMount(){
+        console.log(window.commInfo)
+    }
     render(){
 
         return(
