@@ -20,9 +20,12 @@ export default class MainView extends React.Component {
             user_name: userName,
             pass_word: passWord
         }).then(res=>{
-           window.commInfo.loginSuccess = true;
+           // window.commInfo.loginSuccess = true;
            window.commInfo.userName = res.userName;
-
+           window.commInfo.token = res.token;
+           let token = res.userId+"_"+res.token;
+           localStorage.setItem('token',token);
+           localStorage.setItem('user',JSON.stringify(res));
             // axios.defaults.headers.common['token'] = `${res.userId}_${res.token}`;
            // window.commInfo.token=`${res.userId}_${res.token}`
            history.push('/')

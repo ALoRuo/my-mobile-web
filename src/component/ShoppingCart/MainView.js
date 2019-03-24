@@ -22,15 +22,9 @@ export default class MainView extends React.Component {
         }
     }
     componentWillMount(){
-    //    调接口获取这个用户的购物车数据传参（customerId）,获取数据格式[{productId,productName,productCount}]
-    //   测试接口
-    //     model.test({
-    //         user_name: "sbgdl",
-    //         pass_word: 123456
-    //     }).then(res=>console.log(res));
-    //     this.setState({
-    //         dataSource:data,
-    //     })
+        model.getShoppingCartList({}).then({
+
+        })
     }
     handleCheckChange = (e,val) => {
         let { checkedList,dataSource } = this.state;

@@ -8,26 +8,29 @@ export default class MainView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // loginSuccess:false
+            user:{},
         }
     }
     componentDidMount(){
-
-        if(!window.commInfo.loginSuccess){
-            history.push('/login')
+        const user = JSON.parse(localStorage.getItem("user"));
+        // const tokenId = user?JSON.parse(localStorage.getItem("user")).token:'';
+        // const login_token = localStorage.getItem('token')||false;
+        if(!user){
+            history.push('/login');
         }
-
-        // console.log(test)
+        this.setState({
+            user,
+        })
     }
     render(){
-        // let {loginSuccess} = this.state;
+        let {user} = this.state;
         return(
             <div className="user-content">
                 <div className="user-header">
                     <div className='user-header-pic'></div>
                     <div className='user-header-name'>
                         {
-                            window.commInfo.loginSuccess?(<div><p>{window.commInfo.userName}</p><p>黄金会员</p></div>):<p>请先登录</p>
+                            user?(<div><p>{user.userName}</p><p>黄金会员</p></div>):<p>请先登录</p>
                         }
                     </div>
                 </div>
