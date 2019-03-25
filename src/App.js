@@ -10,6 +10,7 @@ import ProductList from 'components/Classify/ProductList'
 import ProductItem from 'components/Classify/ProductItem'
 import AssessView from 'components/Classify/AssessView'
 import OrderListView from 'components/OrderListView/MainView'
+import ClassifyView from 'components/Classify/ClassifyView'
 import Login from 'components/Login'
 
 class App extends Component {
@@ -26,6 +27,8 @@ class App extends Component {
             <Route path='/assess/:productname' component={AssessView}/>
             <Route path='/orderlist' component={OrderListView}/>
             <Route path='/login' component={Login}/>
+            <Route path='/classify' component={ClassifyView}/>
+
           </Switch>
         </Router>
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { TabBar,NavBar,Icon } from 'antd-mobile';
-import ListViewContent from './ListViewContent'
+import history from 'utils/HistoryRedirection'
 import ClassifyView from './Classify/ClassifyView'
 import UserCenter from './UserCenter/MainView'
 import ShoppingCart from './ShoppingCart/MainView'
@@ -77,10 +77,12 @@ export default class MainView extends React.Component {
                             onPress={() => {
                                 this.setState({
                                     selectedTab: 'classify',
+                                },()=>{
+                                    history.push('/classify')
                                 });
                             }}
                         >
-                            <ClassifyView/>
+                            {/*<ClassifyView/>*/}
                         </TabBar.Item>
                         <TabBar.Item
                             icon={<i className='iconfont icon-gouwuche2' style={{fontSize:21}}/>}

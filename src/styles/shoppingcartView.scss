@@ -103,8 +103,20 @@
       text-align: center;
     }
   }
-  //.shopping-cart-item{
-  //  position: relative;
-  //
-  //}
+  .empty-shopping-car{
+    margin-top: 40%;
+    text-align: center;
+    .pic {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto;
+      background: url("../images/empty-shopping-car.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-size: 78%;
+      background-color: #fff;
+      border-radius: 30px;
+      background-position: center;
+    }
+  }
 }

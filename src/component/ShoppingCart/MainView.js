@@ -90,7 +90,12 @@ export default class MainView extends React.Component {
             <div className='shopping-cart'>
                 {/*<List renderHeader={() => 'CheckboxItem demo'} >*/}
                 <div className='shopping-cart-body'>
-                    {dataSource.map((item,index) => (
+                    {dataSource.length === 0?
+                        <div className='empty-shopping-car'>
+                            <div className="pic" ></div>
+                            <div style={{color: '#e2b672', marginTop: 10}}>您还没有宝贝加入购物车哦~</div>
+                        </div>:
+                        dataSource.map((item,index) => (
                         <CheckboxItem key={item.productId} onChange={(e) => this.handleCheckChange(e,item.productId)} className='checkbox-item'>
                             <div className='shopping-cart-item'>
                                 <div style={{
@@ -122,7 +127,7 @@ export default class MainView extends React.Component {
                         width:'30%'
 
                     }}>
-                        <CheckboxItem onChange={this.toggleSelectedAll} >
+                        <CheckboxItem onChange={this.toggleSelectedAll} disabled={dataSource.length === 0}>
                             <span>全选</span>
                         </CheckboxItem>
                     </div>

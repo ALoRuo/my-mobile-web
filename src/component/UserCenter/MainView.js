@@ -15,9 +15,9 @@ export default class MainView extends React.Component {
         const user = JSON.parse(localStorage.getItem("user"));
         // const tokenId = user?JSON.parse(localStorage.getItem("user")).token:'';
         // const login_token = localStorage.getItem('token')||false;
-        if(!user){
-            history.push('/login');
-        }
+        // if(!user){
+        //     history.push('/login');
+        // }
         this.setState({
             user,
         })
@@ -51,26 +51,26 @@ export default class MainView extends React.Component {
                 <WhiteSpace size="md" />
                 <div className='user-shopping'>
 
-                    <div className='percent-20'>我的订单</div>
-                    <div className='percent-20'>待付款</div>
-                    <div className='percent-20'>待收货</div>
-                    <div className='percent-20'>待评价</div>
-                    <div className='percent-20'>售后服务</div>
-                    <div className='percent-25'>我的收藏</div>
-                    <div className='percent-25'>商品</div>
-                    <div className='percent-25'>专题</div>
-                    <div className='percent-25'>话题</div>
+                    <div className='percent-20'><i className='iconfont icon-dingdan'/><p>我的订单</p></div>
+                    <div className='percent-20'><i className='iconfont icon-dingdandaifukuan'/><p>待付款</p></div>
+                    <div className='percent-20'><i className='iconfont icon-daishouhuo'/><p>待收货</p></div>
+                    <div className='percent-20'><i className='iconfont icon-daipingjia'/><p>待评价</p></div>
+                    <div className='percent-20'><i className='iconfont icon-shouhoufuwu'/><p>售后服务</p></div>
+                    <div className='percent-25'><i className='iconfont icon-wodeshoucang' style={{color: 'red'}}/><p>我的收藏</p></div>
+                    <div className='percent-25'><i className='iconfont icon-shangpin'/><p>商品</p></div>
+                    <div className='percent-25'><i className='iconfont icon-zhuanti'/><p>专题</p></div>
+                    <div className='percent-25'><i className='iconfont icon-huati'/><p>话题</p></div>
                 </div>
                 <WhiteSpace size="md" />
                 <List style={{ backgroundColor: 'white',marginBottom:10 }} className="picker-list">
-                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>我的足迹</span></List.Item>
-                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>我的评价</span></List.Item>
-                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>地址管理</span></List.Item>
+                    <List.Item arrow="horizontal"><i className='iconfont icon-zuji'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>我的足迹</span></List.Item>
+                    <List.Item arrow="horizontal"><i className='iconfont icon-wodepingjia'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>我的评价</span></List.Item>
+                    <List.Item arrow="horizontal"><i className='iconfont icon-dizhi'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>地址管理</span></List.Item>
                 </List>
                 <List style={{ backgroundColor: 'white',marginBottom:10 }} className="picker-list">
-                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>我的会员</span></List.Item>
-                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>服务中心</span></List.Item>
-                    <List.Item arrow="horizontal"><span style={{fontSize:14,color:'#333'}}>系统设置</span></List.Item>
+                    <List.Item arrow="horizontal"><i className='iconfont icon-huiyuan'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>我的会员</span></List.Item>
+                    <List.Item arrow="horizontal"><i className='iconfont icon-fuwuzhongxin'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>服务中心</span></List.Item>
+                    <List.Item arrow="horizontal"><i className='iconfont icon-xitongshezhi'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>系统设置</span></List.Item>
                 </List>
             </div>
         )

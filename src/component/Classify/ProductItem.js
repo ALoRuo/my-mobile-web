@@ -1,5 +1,5 @@
 import React from "react";
-import { WhiteSpace, NavBar, Icon, Carousel, ActionSheet, List, Flex } from 'antd-mobile';
+import { WhiteSpace, NavBar, Icon, Carousel, ActionSheet, List, Stepper } from 'antd-mobile';
 import history from 'utils/HistoryRedirection';
 import 'styles/classify.scss';
 import model from 'models/classifyModel'
@@ -19,6 +19,7 @@ export default class MainView extends React.Component {
             data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
             imgHeight: 200,
             show:false,
+            productCount:1,
             dataSource:{
                 ppa:{}
             },
@@ -44,72 +45,14 @@ export default class MainView extends React.Component {
             }
         }
     }
-    //加入购物车
+    //点击加入购物车
     addShoppingCart = () => {
-        // const SY = [
-        //     {
-        //         title:'颜色',
-        //         select:['红色','粉色','黑色','白色','蓝色','灰色']
-        //     }, {
-        //        title:'尺寸',
-        //         select:['s','m','l','xl','xs']
-        //     }
-        // ];
-        // const message = (
-        //     <div style={{minHeight:300}}>
-        //         <div style={{overflow:'hidden'}}>
-        //             <div style={{float:'left',width:'28%',marginBottom:20}}>
-        //                 <div style={{width:'100%',paddingBottom:'100%',border:'1px solid #ccc',borderRadius:4}}></div>
-        //             </div>
-        //             <div style={{
-        //                 width: '72%',
-        //                 float: 'left',
-        //                 paddingLeft: 10,
-        //                 paddingTop: 10,
-        //             }}>
-        //                 <p style={{
-        //                     fontSize: 18,
-        //                     textAlign: 'left',
-        //                     color:'#f7500d',
-        //                     marginBottom:10,
-        //                     fontWeight: '500'
-        //                 }}>￥99</p>
-        //                 <p style={{
-        //                     fontSize: 12,
-        //                     textAlign: 'left',
-        //                     color:'#999',
-        //                     marginBottom:20
-        //                 }}>库存9999件</p>
-        //                 <p style={{
-        //                     fontSize: 12,
-        //                     textAlign: 'left',
-        //                 }}>
-        //                     选择尺寸，颜色分类
-        //                 </p>
-        //             </div>
-        //         </div>
-        //         {
-        //             SY.map((item,index)=>{
-        //                 return <div className='add-shopping'>
-        //                     <div style={{width:'100%',color:'#333',textAlign:'left'}}>{item.title}</div>
-        //                     {
-        //                         item.select.map(selectItem=>{
-        //                             return <div className={this.changeClassName(item.title,selectItem)} onClick={()=>this.handleSelectToAddCar(item.title,selectItem)}>{selectItem}</div>
-        //                         })
-        //                     }
-        //                 </div>
-        //             })
-        //         }
-        //     </div>
-        //
-        // );
-        // ActionSheet.showShareActionSheetWithOptions({
-        //         options: [],
-        //         message:message,
-        //         cancelButtonText:(<div style={{color:'#fff',background:'#7cb37c'}}>确定</div>)
-        //     });
         let {show} = this.state;
         this.setState({show:!show})
+    }
+    //确认加入购物车
+    addToShoppingCar = () => {
+
     }
     changeClassName = (type,value) => {
         console.log(2)
@@ -211,8 +154,11 @@ export default class MainView extends React.Component {
                 cancelButtonText:(<div style={{color:'#fff',background:'#7cb37c'}}>完成</div>)
             });
     }
+    stepChange = (value) => {
+        this.setState({productCount:value});
+    }
     render(){
-        let {selectedTab,imgHeight,show,dataSource} = this.state;
+        let {selectedTab,imgHeight,show,dataSource,productCount} = this.state;
         const SY = [
             {
                 title:'颜色',
@@ -333,7 +279,7 @@ export default class MainView extends React.Component {
                     </div>
                 </div>
                 <div className="mask" style={{display:show?'block':'none'}}></div>
-                <div style={{height:350,background:'#fff',padding:'20px 10px'}} className={show?'show':'hidden'}>
+                <div style={{height:350,background:'#fff',padding:'20px 10px',position:'relative',zIndex:2}} className={show?'show':'hidden'}>
                     <div style={{overflow:'hidden'}}>
                         <div style={{float:'left',width:'28%',marginBottom:20}}>
                             <div style={{width:'100%',paddingBottom:'100%',border:'1px solid #ccc',borderRadius:4}}></div>
@@ -377,7 +323,19 @@ export default class MainView extends React.Component {
                             </div>
                         })
                     }
-                    <div className='sure-to-add'>确定</div>
+                    <div style={{textAlign:'left'}}>
+                        <span style={{lineHeight:'44px'}}>购买数量：</span>
+                        <Stepper
+                            style={{ minWidth: '100px',position:'absolute',right:25 }}
+                            showNumber
+                            max={stock}
+                            min={1}
+                            value={productCount}
+                            onChange={this.stepChange}
+                        />
+                    </div>
+
+                    <div className='sure-to-add' onClick={this.addToShoppingCar}>确定</div>
                 </div>
                 {/*<WhiteSpace size="lg" />*/}
                 <div style={{height:45,display:'flex',position:'fixed',bottom:0,width:'100%',textAlign:'center',lineHeight:'45px',zIndex:100,background:'#fff'}}>

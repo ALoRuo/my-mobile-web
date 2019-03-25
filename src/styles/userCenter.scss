@@ -13,6 +13,10 @@
     .user-header-pic{
       flex: 1 1;
       border-right:1px solid #fff;
+      background: url("../images/userCenter.png");
+      background-repeat: no-repeat;
+      background-size: 60%;
+      background-position: center;
     }
     .user-header-name{
       flex: 2 1;
@@ -48,11 +52,25 @@
       width:20%;
       height:60px;
       text-align: center;
+      p{
+        font-size: 12px;
+      }
+      i{
+        font-size: 30px;
+        color: #e47d30;
+      }
     }
     .percent-25{
       width:25%;
       height:60px;
       text-align: center;
+      p{
+        font-size: 12px;
+      }
+      i{
+        font-size: 30px;
+        color: #e47d30;
+      }
     }
   }
   .user-message,.user-setting{
