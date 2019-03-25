@@ -3,6 +3,7 @@
 .menu-active {
   height:100%;
   position: relative;
+  top: 45px;
   .left-nav-bar{
     width: 25%;
     height: 100%;
@@ -187,11 +188,16 @@
 //商品详情页面
 .product-list-item{
   background: $background-color;
+
   .hidden{
     transform: translateY(45px);
   }
   .show{
     transform: translateY(-305px);
+    .add-to-car-pic{
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
   }
   .mask{
     position: absolute;

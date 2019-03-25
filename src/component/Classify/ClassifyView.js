@@ -14,6 +14,7 @@ export default class MainView extends React.Component {
         };
     }
     componentDidMount(){
+        console.log(window.commInfo)
         model.getFirstLevel({
             pageNum:1,
             pageSize:5
@@ -46,7 +47,7 @@ export default class MainView extends React.Component {
     render(){
         let {selectedValue,navBarData} = this.state;
         return(
-            <div className='menu-active' style={{height:window.innerHeight-90}}>
+            <div className='menu-active' style={{height:window.innerHeight-95}}>
                 <div className='left-nav-bar'>
                     <ul>
                         {

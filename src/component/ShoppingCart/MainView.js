@@ -18,12 +18,16 @@ export default class MainView extends React.Component {
         this.state = {
             stepVal:1,
             dataSource:[],
-            checkedList:[]
+            checkedList:[],
+            delCar:false,
         }
     }
     componentWillMount(){
-        model.getShoppingCartList({}).then({
-
+       this.initShoppingCar();
+    }
+    initShoppingCar = () => {
+        model.getShoppingCartList({}).then(res=>{
+            this.setState({dataSource:res});
         })
     }
     handleCheckChange = (e,val) => {
@@ -39,37 +43,51 @@ export default class MainView extends React.Component {
             });
             checkedList.splice(deleteIndex,1);
         }
-        this.setState({checkedList})
+        this.setState({checkedList},()=>console.log(checkedList))
         // console.log(e,val);
     }
     // 0表示减，1表示加
-    handleStepChange = (step,value,index) => {
+    handleStepChange = (step,value,index,id) => {
         let {dataSource} = this.state;
         if(step === 0){
-            if(dataSource[index].productCount !== 1){
-                dataSource[index].productCount--;
+            if(dataSource[index].productNum !== 1){
+                dataSource[index].productNum--;
             }else {
-                alert('Delete', '是否确定要删除宝贝', [
+                alert('删除宝贝', '是否确定要删除宝贝', [
                     { text: '取消', onPress: () => console.log('cancel') },
                     { text: '确定', onPress: () => {
-                            dataSource.splice(index,1);
-                            this.setState({dataSource});
+                            model.delShoppingCart({product_id:id}).then(()=>{this.initShoppingCar();})
                         } },
                 ])
             }
 
         }else {
-            dataSource[index].productCount++;
+            dataSource[index].productNum++;
         }
         this.setState({dataSource});
+    }
+    handleDelete = () => {
+        let { checkedList,dataSource } = this.state;
+        if(checkedList.length === 0)
+        {
+            Toast.info('您还没有勾选商品哦~');
+        }else if(checkedList.length === dataSource.length){
+            model.delAllShoppingCart({}).then(()=>this.initShoppingCar())
+        }else {
+            checkedList.forEach(item=>{
+                model.delShoppingCart({product_id:item}).then(()=>{this.initShoppingCar();})
+            })
+        }
     }
     toggleSelectedAll = (e) => {
 
         let checkBoxs = document.querySelectorAll('.checkbox-item');
         //防止数组第一个元素没有被绑定到
+        // console.log(checkBoxs[0].querySelector('span.am-checkbox input'))
         checkBoxs[0].querySelector('span.am-checkbox input').click();
         checkBoxs.forEach((item,index)=>{
             item.querySelector('span.am-checkbox input').click();
+            checkBoxs[0].querySelector('span.am-checkbox input').click();
 
         })
 
@@ -84,11 +102,21 @@ export default class MainView extends React.Component {
     }
 
     render(){
-        let {dataSource} = this.state;
+        let {dataSource,delCar} = this.state;
         // console.log(dataSource)
         return (
             <div className='shopping-cart'>
                 {/*<List renderHeader={() => 'CheckboxItem demo'} >*/}
+                <span
+                    style={{
+                        position: 'fixed',
+                        color: '#fff',
+                        right: 10,
+                        fontSize: 16,
+                        top: 13
+                    }}
+                    onClick={()=>{this.setState({delCar:!delCar})}}
+                >{delCar?'完成':'管理'}</span>
                 <div className='shopping-cart-body'>
                     {dataSource.length === 0?
                         <div className='empty-shopping-car'>
@@ -96,7 +124,7 @@ export default class MainView extends React.Component {
                             <div style={{color: '#e2b672', marginTop: 10}}>您还没有宝贝加入购物车哦~</div>
                         </div>:
                         dataSource.map((item,index) => (
-                        <CheckboxItem key={item.productId} onChange={(e) => this.handleCheckChange(e,item.productId)} className='checkbox-item'>
+                        <CheckboxItem key={index} onChange={(e) => this.handleCheckChange(e,item.productId)} className='checkbox-item'>
                             <div className='shopping-cart-item'>
                                 <div style={{
                                     display:'inline-block',
@@ -105,13 +133,22 @@ export default class MainView extends React.Component {
                                     marginTop:'2%',
                                     border:'1px solid #ccc'
                                 }}>pic</div>
+                                <i className='iconfont icon-lajitong' style={{position:'absolute',right: 10,color: '#666'}} onClick={()=>{
+                                    alert('删除宝贝', '是否确定要删除宝贝', [
+                                        { text: '取消', onPress: () => console.log('cancel') },
+                                        { text: '确定', onPress: () => {
+                                                model.delShoppingCart({product_id:item.productId}).then(()=>this.initShoppingCar())
+                                            } },
+                                    ])
+                                }}/>
                                 <div className='name-price'>
                                     <div className='shoppingcart-product-name' >{item.productName}</div>
-                                    <p style={{color:'#f7500d'}}>￥99.0</p>
+                                    <p style={{color:'#666',fontSize:12}}>{item.product_sort}</p>
+                                    <p style={{color:'#f7500d'}}>￥{item.price}</p>
                                     <div className="count-step">
-                                        <span className='left' onClick={()=>this.handleStepChange(0,item.productCount,index)}>-</span>
-                                        <span className='center'>{item.productCount}</span>
-                                        <span className='right' onClick={()=>this.handleStepChange(1,item.productCount,index)}>+</span>
+                                        <span className='left' onClick={()=>this.handleStepChange(0,item.productCount,index,item.productId)}>-</span>
+                                        <span className='center'>{item.productNum}</span>
+                                        <span className='right' onClick={()=>this.handleStepChange(1,item.productCount,index,item.productId)}>+</span>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +168,7 @@ export default class MainView extends React.Component {
                             <span>全选</span>
                         </CheckboxItem>
                     </div>
-                    <span onClick={this.paymentFn}>结算</span>
+                    {delCar?<span style={{backgroundColor:'#da5819'}} onClick={this.handleDelete}>删除</span>:<span onClick={this.paymentFn}>结算</span>}
                 </div>
             </div>
         )

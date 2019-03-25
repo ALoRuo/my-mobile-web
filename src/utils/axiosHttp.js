@@ -10,11 +10,11 @@ const instance = axios.create({
 });
 //添加一个请求拦截器
 instance.interceptors.request.use(function (config) {
-   // let token = localStorage.getItem('token');
-   // console.log(token)
-   //  if (token && config.url.indexOf('login')<0) {
-   //      config.headers.common['token'] = token;
-   //  }
+   let token = localStorage.getItem('token');
+   console.log(token)
+    if (token && config.url.indexOf('login')<0) {
+        config.headers.common['token'] = token;
+    }
     return config;
 }, function (error) {
     // Do something with request error
@@ -26,7 +26,10 @@ instance.interceptors.response.use(
         return response;
     },
     error => {
-        // history.push('/login');
+        console.log(error.response.status)
+        switch (error.response.status){
+            case 401:history.push('/login');break;
+        }
         return Promise.reject('请登录')   // 返回接口返回的错误信息
     });
 /*
@@ -65,7 +68,7 @@ instance.interceptors.response.use(
 const request = {
     handleData: function (res, resolve, reject) {
         let result = res.data;
-
+        console.log(res)
         if (result.code === 200) {
             resolve(result.data);
         }else {

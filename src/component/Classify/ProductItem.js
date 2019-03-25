@@ -1,8 +1,9 @@
 import React from "react";
-import { WhiteSpace, NavBar, Icon, Carousel, ActionSheet, List, Stepper } from 'antd-mobile';
+import { WhiteSpace, NavBar, Icon, Carousel, ActionSheet, List, Stepper, Toast } from 'antd-mobile';
 import history from 'utils/HistoryRedirection';
 import 'styles/classify.scss';
 import model from 'models/classifyModel'
+import carModel from 'models/shoppingCartModel'
 
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
 let wrapProps;
@@ -21,7 +22,9 @@ export default class MainView extends React.Component {
             show:false,
             productCount:1,
             dataSource:{
-                ppa:{}
+                ppa:{
+                    inputArrayList:[]
+                }
             },
         };
     }
@@ -52,10 +55,17 @@ export default class MainView extends React.Component {
     }
     //确认加入购物车
     addToShoppingCar = () => {
-
+        let {dataSource,productCount} = this.state;
+        carModel.addShoppingCart({
+            "product_id":dataSource.id,
+            "product_num":productCount,
+            "product_sort":this.state[dataSource.ppa.name]
+        }).then(res=>{
+            Toast.info('已加入购物车哦~');
+            this.setState({show:false})
+        })
     }
     changeClassName = (type,value) => {
-        console.log(2)
         let selectValue = this.state[type];
         if(selectValue !== value){
             return 'add-shopping-select-item'
@@ -64,12 +74,13 @@ export default class MainView extends React.Component {
         }
     }
     handleSelectToAddCar = (type,value) => {
-        console.log(1);
+        console.log(value);
         let state = this.state;
         state[type] = value;
         this.setState(state,()=>{
             console.log(this.state)
         })
+
     }
     handleSelect = (value) => {
         this.setState({
@@ -168,9 +179,9 @@ export default class MainView extends React.Component {
                 select:['s','m','l','xl','xs']
             }
         ];
-        let {price,detailTitle,sale,stock,brandName,ppa} = dataSource;
-        let sizeList =dataSource.ppa.inputList?dataSource.ppa.inputList.split(','):[];
-        console.log(sizeList)
+        let {price,detailTitle,sale,stock,brandName,ppa,pic} = dataSource;
+        // let sizeList =dataSource.ppa.inputList?dataSource.ppa.inputList.split(','):[];
+        // console.log(sizeList)
         return(
             <div className='product-list-item' style={{height:window.innerHeight,paddingBottom:10}} >
                 <NavBar
@@ -278,11 +289,11 @@ export default class MainView extends React.Component {
 
                     </div>
                 </div>
-                <div className="mask" style={{display:show?'block':'none'}}></div>
+                <div className="mask" style={{display:show?'block':'none'}} onClick={()=>{this.setState({show:false})}}></div>
                 <div style={{height:350,background:'#fff',padding:'20px 10px',position:'relative',zIndex:2}} className={show?'show':'hidden'}>
                     <div style={{overflow:'hidden'}}>
                         <div style={{float:'left',width:'28%',marginBottom:20}}>
-                            <div style={{width:'100%',paddingBottom:'100%',border:'1px solid #ccc',borderRadius:4}}></div>
+                            <div className='add-to-car-pic' style={{width:'100%',paddingBottom:'100%',border:'1px solid #ccc',borderRadius:4,backgroundImage:`url(${pic})`}}></div>
                         </div>
                         <div style={{
                             width: '72%',
@@ -307,21 +318,21 @@ export default class MainView extends React.Component {
                                 fontSize: 12,
                                 textAlign: 'left',
                             }}>
-                                选择尺寸，颜色分类
+                                选择{ppa.name}分类
                             </p>
                         </div>
                     </div>
                     {
-                        sizeList.map((item,index)=>{
-                            return <div className='add-shopping'>
-                                <div style={{width:'100%',color:'#333',textAlign:'left'}}>{item.title}</div>
+                        // ppa.inputArrayList.map((item,index)=>{
+                           <div className='add-shopping'>
+                                <div style={{width:'100%',color:'#333',textAlign:'left'}}>{ppa.name}</div>
                                 {
-                                    item.select.map(selectItem=>{
-                                        return <div className={this.changeClassName(item.title,selectItem)} onClick={()=>this.handleSelectToAddCar(item.title,selectItem)}>{selectItem}</div>
+                                    ppa.inputArrayList.map(selectItem=>{
+                                        return <div className={this.changeClassName(ppa.name,selectItem)} onClick={()=>this.handleSelectToAddCar(ppa.name,selectItem)}>{selectItem}</div>
                                     })
                                 }
                             </div>
-                        })
+                        // })
                     }
                     <div style={{textAlign:'left'}}>
                         <span style={{lineHeight:'44px'}}>购买数量：</span>

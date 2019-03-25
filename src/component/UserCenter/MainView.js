@@ -25,7 +25,7 @@ export default class MainView extends React.Component {
     render(){
         let {user} = this.state;
         return(
-            <div className="user-content">
+            <div className="user-content" style={{height:window.innerHeight-95}}>
                 <div className="user-header">
                     <div className='user-header-pic'></div>
                     <div className='user-header-name'>
@@ -70,7 +70,7 @@ export default class MainView extends React.Component {
                 <List style={{ backgroundColor: 'white',marginBottom:10 }} className="picker-list">
                     <List.Item arrow="horizontal"><i className='iconfont icon-huiyuan'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>我的会员</span></List.Item>
                     <List.Item arrow="horizontal"><i className='iconfont icon-fuwuzhongxin'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>服务中心</span></List.Item>
-                    <List.Item arrow="horizontal"><i className='iconfont icon-xitongshezhi'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>系统设置</span></List.Item>
+                    <List.Item arrow="horizontal"><i className='iconfont icon-xitongshezhi'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>退出账号</span></List.Item>
                 </List>
             </div>
         )

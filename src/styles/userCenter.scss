@@ -1,9 +1,11 @@
 @import "common";
 .user-content{
   background: #ececec;
-  height: 100%;
+  //height: 100%;
   overflow: auto;
   padding-bottom: 20px;
+  position: relative;
+  top: 45px;
   .user-header{
     height:150px;
     display: -webkit-box;

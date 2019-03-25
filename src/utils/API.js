@@ -14,4 +14,8 @@ export default {
     ADD_SHOPPING_CART:prefixed+'cart/add',
     //商品详情
     GET_PRODUCT_DETAIL:prefixed+'product',
+    //删除购物车一样商品
+    DEL_CART_PRODUCT: prefixed+'cart/delCartProduct',
+    //全部删除
+    DEL_ALL_PRODUCTS:prefixed+'cart/delCart'
 }

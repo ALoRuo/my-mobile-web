@@ -4,6 +4,8 @@
   .shopping-cart-body{
     height:calc(100vh - 145px);
     overflow-y: auto;
+    position: relative;
+    top: 45px;
     .am-list-item{
      height:20%;
       .am-list-content{
@@ -80,7 +82,6 @@
     bottom:50px;
     width:100%;
     border-top:$border-style;
-    border-bottom: $border-style;
     .am-list-item{
       background-color:inherit;
     }

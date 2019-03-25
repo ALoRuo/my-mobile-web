@@ -1,6 +1,6 @@
 import React from "react";
 import { TabBar,NavBar,Icon } from 'antd-mobile';
-import history from 'utils/HistoryRedirection'
+import history from 'utils/HistoryRedirection';
 import ClassifyView from './Classify/ClassifyView'
 import UserCenter from './UserCenter/MainView'
 import ShoppingCart from './ShoppingCart/MainView'
