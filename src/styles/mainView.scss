@@ -1,0 +1,15 @@
+@import "common";
+.mainview{
+  background: $background-color;
+  .bottom-tab{
+    display: flex;
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    .tab-item{
+      flex: 1 1;
+      text-align: center;
+    }
+  }
+}

@@ -18,7 +18,8 @@ class App extends Component {
     return (
         <Router history={history}>
           <Switch>
-            <Route exact path="/" component={MainView}/>
+            <Route exact path="/" component={MainView}>
+            </Route>
             <Route path='/payment' component={Payment}/>
             <Route path='/paysuccess' component={PaySuccess}/>
             <Route path='/payview' component={PayView}/>
