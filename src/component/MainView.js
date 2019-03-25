@@ -24,7 +24,7 @@ export default class MainView extends React.Component {
                     //     <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
                     //     <Icon key="1" type="ellipsis" />,
                     // ]}
-                    
+
                 >商城</NavBar>
                 <div className="bottom-tab">
                     <div className='tab-item'><i className='iconfont icon-shouye' style={{fontSize:21}}/><p>首页</p></div>
