@@ -17,5 +17,17 @@ export default {
     //删除购物车一样商品
     DEL_CART_PRODUCT: prefixed+'cart/delCartProduct',
     //全部删除
-    DEL_ALL_PRODUCTS:prefixed+'cart/delCart'
+    DEL_ALL_PRODUCTS:prefixed+'cart/delCart',
+    //新增收货地址
+    USER_UPDATE:prefixed+'user/update',
+    //获取所有收货地址
+    RECEIVER_INFO: prefixed+'user/ReceiverInfo',
+    //获取单独一条收货信息
+    GET_ONE_RECEIVE_INFO: prefixed+'user/ReceiverInfoById',
+    //修改收货信息
+    UPDATE_RECEIVE_INFO: prefixed+'user/UpdateReceiverInfo',
+    //删除收货信息
+    DELETE_RECEIVE_INFO: prefixed+'user/delete',
+    //生成订单
+    CREATE_ORDER:prefixed+'order/create',
 }

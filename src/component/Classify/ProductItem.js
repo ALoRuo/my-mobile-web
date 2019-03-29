@@ -35,7 +35,6 @@ export default class MainView extends React.Component {
                 dataSource:res
             })
         })
-        console.log(111)
     }
     /*
     定义锚点直接跳转
@@ -53,6 +52,10 @@ export default class MainView extends React.Component {
         let {show} = this.state;
         this.setState({show:!show})
     }
+    goToPayProduct = () => {
+        let {show} = this.state;
+        this.setState({show:!show});
+    }
     //确认加入购物车
     addToShoppingCar = () => {
         let {dataSource,productCount} = this.state;
@@ -61,7 +64,7 @@ export default class MainView extends React.Component {
             "product_num":productCount,
             "product_sort":this.state[dataSource.ppa.name]
         }).then(res=>{
-            Toast.info('已加入购物车哦~');
+            Toast.info('已加入购物车哦~',0.5);
             this.setState({show:false})
         })
     }
@@ -188,6 +191,9 @@ export default class MainView extends React.Component {
                     style={{position:'fixed',top:0,width:'100%',background:'#ececec'}}
                     mode="light"
                     icon={<Icon type="left" color={'#7cb37c'} size={'lg'}/>}
+                    rightContent={[
+                        <i className='iconfont  icon-gouwuche2' style={{fontSize:22,color: '#f79066'}} onClick={()=>history.push('/shoppingCart')}/>
+                    ]}
                     onLeftClick={() => history.go(-1)}
                 >
                     商品信息
@@ -350,10 +356,10 @@ export default class MainView extends React.Component {
                 </div>
                 {/*<WhiteSpace size="lg" />*/}
                 <div style={{height:45,display:'flex',position:'fixed',bottom:0,width:'100%',textAlign:'center',lineHeight:'45px',zIndex:100,background:'#fff'}}>
-                    <div style={{flex:'1 1',fontSize:12}}>客服</div>
-                    <div style={{flex:'1 1',fontSize:12}}>店铺</div>
+                    <div style={{flex:'1 1'}}><i className='iconfont icon-mall' style={{marginTop:'-7px',display:'block',color:'#f7500d'}}/><p style={{fontSize:12,marginTop:'-6px',lineHeight:0}}>店铺</p></div>
+                    <div style={{flex:'1 1'}}><i className='iconfont icon-kefu' style={{marginTop:'-7px',display:'block'}}/><p style={{fontSize:12,marginTop:'-6px',lineHeight:0}}>客服</p></div>
                     <div style={{flex:'2 1',color:'#fff',background:'#7cb37c',fontSize:14}} onClick={this.addShoppingCart}>加入购物车</div>
-                    <div style={{flex:'2 1',color:'#fff',background:'#f7500d',fontSize:14}}>立即购买</div>
+                    <div style={{flex:'2 1',color:'#fff',background:'#f7500d',fontSize:14}} onClick={this.goToPayProduct}>立即购买</div>
                 </div>
                 {/*<WhiteSpace size="lg" />*/}
 

@@ -20,10 +20,12 @@ export default class MainView extends React.Component {
             dataSource:[],
             checkedList:[],
             delCar:false,
+            selectAll:false,
         }
     }
     componentWillMount(){
        this.initShoppingCar();
+       this.setState({checkedList:[]},()=>console.log(this.state.checkedList))
     }
     initShoppingCar = () => {
         model.getShoppingCartList({}).then(res=>{
@@ -31,23 +33,23 @@ export default class MainView extends React.Component {
         })
     }
     handleCheckChange = (e,val) => {
-        let { checkedList,dataSource } = this.state;
+        let { checkedList } = this.state;
         let deleteIndex = '';
         if(e.target.checked){
-            checkedList.push(dataSource.find(item=>item.productId === val));
+            checkedList.push(val);
         }else {
-            dataSource.forEach((item,index)=>{
-                if(item.productId === val){
+            checkedList.forEach((item,index)=>{
+                if(item.shopCarId === val.shopCarId){
                     deleteIndex = index;
                 }
             });
             checkedList.splice(deleteIndex,1);
         }
-        this.setState({checkedList},()=>console.log(checkedList))
+        this.setState({checkedList})
         // console.log(e,val);
     }
     // 0表示减，1表示加
-    handleStepChange = (step,value,index,id) => {
+    handleStepChange = (step,value,index,item) => {
         let {dataSource} = this.state;
         if(step === 0){
             if(dataSource[index].productNum !== 1){
@@ -56,7 +58,7 @@ export default class MainView extends React.Component {
                 alert('删除宝贝', '是否确定要删除宝贝', [
                     { text: '取消', onPress: () => console.log('cancel') },
                     { text: '确定', onPress: () => {
-                            model.delShoppingCart({product_id:id}).then(()=>{this.initShoppingCar();})
+                            model.delShoppingCart({product_id:item.productId,product_sort:item['product_sort']}).then(()=>{this.initShoppingCar();})
                         } },
                 ])
             }
@@ -70,26 +72,61 @@ export default class MainView extends React.Component {
         let { checkedList,dataSource } = this.state;
         if(checkedList.length === 0)
         {
-            Toast.info('您还没有勾选商品哦~');
+            Toast.info('您还没有勾选商品哦~',0.5);
         }else if(checkedList.length === dataSource.length){
             model.delAllShoppingCart({}).then(()=>this.initShoppingCar())
         }else {
             checkedList.forEach(item=>{
-                model.delShoppingCart({product_id:item}).then(()=>{this.initShoppingCar();})
+                model.delShoppingCart({product_id:item.productId,product_sort:item['product_sort']}).then(()=>{
+                    this.initShoppingCar();
+                    let checkBoxs = document.querySelectorAll('.checkbox-item');
+                    checkBoxs.forEach((item,index)=>{
+                        // if(index !== 0)
+                        // {
+                        // item.querySelector('span.am-checkbox input').click();
+                        item.querySelector('span.am-checkbox').classList.remove("am-checkbox-checked");
+                        // }
+
+
+                    })
+                })
             })
         }
     }
     toggleSelectedAll = (e) => {
+        let {selectAll} = this.state;
+        this.setState({selectAll:!selectAll},()=>{
+            if(!selectAll){
+                let checkBoxs = document.querySelectorAll('.checkbox-item');
+                //防止数组第一个元素没有被绑定到
+                // console.log(checkBoxs[0].querySelector('span.am-checkbox input'))
+                // checkBoxs[0].querySelector('span.am-checkbox input').click();
+                checkBoxs.forEach((item,index)=>{
+                    // if(index !== 0)
+                    // {
+                    // item.querySelector('span.am-checkbox input').click();
+                    item.querySelector('span.am-checkbox').classList.add("am-checkbox-checked");
+                    // }
 
-        let checkBoxs = document.querySelectorAll('.checkbox-item');
-        //防止数组第一个元素没有被绑定到
-        // console.log(checkBoxs[0].querySelector('span.am-checkbox input'))
-        checkBoxs[0].querySelector('span.am-checkbox input').click();
-        checkBoxs.forEach((item,index)=>{
-            item.querySelector('span.am-checkbox input').click();
-            checkBoxs[0].querySelector('span.am-checkbox input').click();
 
+                })
+            }else {
+                let checkBoxs = document.querySelectorAll('.checkbox-item');
+                //防止数组第一个元素没有被绑定到
+                // console.log(checkBoxs[0].querySelector('span.am-checkbox input'))
+                // checkBoxs[0].querySelector('span.am-checkbox input').click();
+                checkBoxs.forEach((item,index)=>{
+                    // if(index !== 0)
+                    // {
+                    // item.querySelector('span.am-checkbox input').click();
+                    item.querySelector('span.am-checkbox').classList.remove("am-checkbox-checked");
+                    // }
+
+
+                })
+            }
         })
+
 
     }
     paymentFn = () => {
@@ -123,38 +160,41 @@ export default class MainView extends React.Component {
                             <div className="pic" ></div>
                             <div style={{color: '#e2b672', marginTop: 10}}>您还没有宝贝加入购物车哦~</div>
                         </div>:
-                        dataSource.map((item,index) => (
-                        <CheckboxItem key={index} onChange={(e) => this.handleCheckChange(e,item.productId)} className='checkbox-item'>
-                            <div className='shopping-cart-item'>
-                                <div style={{
-                                    display:'inline-block',
-                                    width:'26%',
-                                    height:'83%',
-                                    marginTop:'2%',
-                                    border:'1px solid #ccc'
-                                }}>pic</div>
-                                <i className='iconfont icon-lajitong' style={{position:'absolute',right: 10,color: '#666'}} onClick={()=>{
-                                    alert('删除宝贝', '是否确定要删除宝贝', [
-                                        { text: '取消', onPress: () => console.log('cancel') },
-                                        { text: '确定', onPress: () => {
-                                                model.delShoppingCart({product_id:item.productId}).then(()=>this.initShoppingCar())
-                                            } },
-                                    ])
-                                }}/>
-                                <div className='name-price'>
-                                    <div className='shoppingcart-product-name' >{item.productName}</div>
-                                    <p style={{color:'#666',fontSize:12}}>{item.product_sort}</p>
-                                    <p style={{color:'#f7500d'}}>￥{item.price}</p>
-                                    <div className="count-step">
-                                        <span className='left' onClick={()=>this.handleStepChange(0,item.productCount,index,item.productId)}>-</span>
-                                        <span className='center'>{item.productNum}</span>
-                                        <span className='right' onClick={()=>this.handleStepChange(1,item.productCount,index,item.productId)}>+</span>
+                        dataSource.map((item,index) =>{
+                            item.shopCarId = index+item.productId;
+                            return (
+                                <CheckboxItem key={index} onChange={(e) => this.handleCheckChange(e,item)} className='checkbox-item'>
+                                    <div className='shopping-cart-item' onClick={()=>history.push(`/productitem/${item.productName}/${item.productId}`)}>
+                                        <div style={{
+                                            display:'inline-block',
+                                            width:'26%',
+                                            height:'83%',
+                                            marginTop:'2%',
+                                            border:'1px solid #ccc'
+                                        }}>pic</div>
+                                        <i className='iconfont icon-lajitong' style={{position:'absolute',right: 10,color: '#666'}} onClick={()=>{
+                                            alert('删除宝贝', '是否确定要删除宝贝', [
+                                                { text: '取消', onPress: () => console.log('cancel') },
+                                                { text: '确定', onPress: () => {
+                                                        model.delShoppingCart({product_id:item.productId,product_sort:item['product_sort']}).then(()=>this.initShoppingCar())
+                                                    } },
+                                            ])
+                                        }}/>
+                                        <div className='name-price'>
+                                            <div className='shoppingcart-product-name' >{item.productName}</div>
+                                            <p style={{color:'#666',fontSize:12}}>{item.product_sort}</p>
+                                            <p style={{color:'#f7500d'}}>￥{item.productPrice}</p>
+                                            <div className="count-step">
+                                                <span className='left' onClick={()=>this.handleStepChange(0,item.productCount,index,item)}>-</span>
+                                                <span className='center'>{item.productNum}</span>
+                                                <span className='right' onClick={()=>this.handleStepChange(1,item.productCount,index,item)}>+</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                        </CheckboxItem>
-                    ))}
+                                </CheckboxItem>
+                            )}
+                        )}
                 </div>
 
                 {/*</List>*/}

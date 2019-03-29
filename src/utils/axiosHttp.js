@@ -26,8 +26,8 @@ instance.interceptors.response.use(
         return response;
     },
     error => {
-        console.log(error.response.status)
-        switch (error.response.status){
+        let status = error.response?error.response.status:'';
+        switch (status){
             case 401:history.push('/login');break;
         }
         return Promise.reject('请登录')   // 返回接口返回的错误信息
@@ -68,7 +68,6 @@ instance.interceptors.response.use(
 const request = {
     handleData: function (res, resolve, reject) {
         let result = res.data;
-        console.log(res)
         if (result.code === 200) {
             resolve(result.data);
         }else {

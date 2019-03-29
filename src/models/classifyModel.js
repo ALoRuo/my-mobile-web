@@ -17,5 +17,9 @@ export default {
     //获取商品详情
     getProductDetail(param){
         return axiosHttp.get(API.GET_PRODUCT_DETAIL, param,'json');
+    },
+    //生成订单
+    createOderList(param){
+        return axiosHttp.post(API.CREATE_ORDER,param,'json')
     }
 }

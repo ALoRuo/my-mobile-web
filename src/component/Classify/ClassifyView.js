@@ -14,7 +14,6 @@ export default class MainView extends React.Component {
         };
     }
     componentDidMount(){
-        console.log(window.commInfo)
         model.getFirstLevel({
             pageNum:1,
             pageSize:5

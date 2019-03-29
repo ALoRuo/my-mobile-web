@@ -65,7 +65,7 @@ export default class MainView extends React.Component {
                 <List style={{ backgroundColor: 'white',marginBottom:10 }} className="picker-list">
                     <List.Item arrow="horizontal"><i className='iconfont icon-zuji'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>我的足迹</span></List.Item>
                     <List.Item arrow="horizontal"><i className='iconfont icon-wodepingjia'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>我的评价</span></List.Item>
-                    <List.Item arrow="horizontal"><i className='iconfont icon-dizhi'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>地址管理</span></List.Item>
+                    <List.Item arrow="horizontal" onClick={()=>history.push('/addresslist')}><i className='iconfont icon-dizhi'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>地址管理</span></List.Item>
                 </List>
                 <List style={{ backgroundColor: 'white',marginBottom:10 }} className="picker-list">
                     <List.Item arrow="horizontal"><i className='iconfont icon-huiyuan'/><span style={{fontSize:14,color:'#333',marginLeft:5}}>我的会员</span></List.Item>

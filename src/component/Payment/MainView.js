@@ -1,7 +1,10 @@
 import React from "react";
-import { NavBar, Icon, Picker, List, InputItem } from 'antd-mobile';
-import 'styles/payment.scss'
-import history from 'utils/HistoryRedirection'
+import { NavBar, Icon, Picker, List, InputItem, Modal } from 'antd-mobile';
+import 'styles/payment.scss';
+import history from 'utils/HistoryRedirection';
+import model from 'models/paymentModel';
+
+const alert = Modal.alert;
 
 const data = {shopName:'Sudo studio',productList:[]};
 for (let i = 0; i<3 ;i++)
@@ -24,7 +27,17 @@ export default class MainView extends React.Component {
         }
     }
     componentDidMount(){
-        console.log(window.innerHeight)
+        model.getAllReceiveInfo({}).then(res=>{
+            res.receiverList = [];
+            if(res.receiverList.length === 0){
+                alert(null, <div style={{padding:'0 35px'}}>您还没有收货信息，是否先填写收货信息保存</div>, [
+                    { text: <span style={{fontSize:14}}>取消</span>, onPress: () => console.log('cancel') },
+                    { text: <span style={{fontSize:14,color:'#f7500d'}}>去填写</span>, onPress: () => history.push('/addtoaddress') },
+                ])
+            }else {
+
+            }
+        })
     }
     onPickerChange = (val,type) => {
         let state = this.state;

@@ -10,6 +10,9 @@ import ProductList from 'components/Classify/ProductList'
 import ProductItem from 'components/Classify/ProductItem'
 import AssessView from 'components/Classify/AssessView'
 import OrderListView from 'components/OrderListView/MainView'
+import AddressListView from 'components/UserCenter/AddressList'
+import AddAddressView from 'components/UserCenter/AddAddressView'
+import ChangeAddressView from 'components/UserCenter/ChangeReceiveInfo'
 import Login from 'components/Login'
 
 class App extends Component {
@@ -17,7 +20,6 @@ class App extends Component {
     return (
         <Router history={history}>
             <Switch>
-
                 <Route path='/payment' component={Payment}/>
                 <Route path='/paysuccess' component={PaySuccess}/>
                 <Route path='/payview' component={PayView}/>
@@ -26,7 +28,11 @@ class App extends Component {
                 <Route path='/assess/:productname' component={AssessView}/>
                 <Route path='/orderlist' component={OrderListView}/>
                 <Route path='/login' component={Login}/>
-                <Route path="/" component={MainView} />
+                <Route path='/addresslist' component={AddressListView}/>
+                <Route path='/addtoaddress' component={AddAddressView}/>
+                <Route path='/changereceiveinfo/:id' component={ChangeAddressView}/>
+                <Route path="/" component={MainView}/>
+                {/*<Redirect from="/" to="/home" />*/}
             </Switch>
         </Router>
 

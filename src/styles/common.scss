@@ -37,6 +37,11 @@ a{
   -webkit-box-orient: vertical;
   /* autoprefixer: on */
 }
+.content-body{
+  position: relative;
+  top:45px;
+  overflow: auto;
+}
 
 
 //公共边样式

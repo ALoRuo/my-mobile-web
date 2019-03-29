@@ -13,7 +13,7 @@
       homescreen on Android. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_1095367_a6xl438jz5v.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1095367_4wnij8uheb2.css">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -44,7 +44,10 @@
   <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
   <script>
     // 公共变量
-      var commInfo = {};
+    (function () {
+        window.commInfo = {};
+    })()
+
       // if ('addEventListener' in document) {
       //     document.addEventListener('DOMContentLoaded', function() {
       //         FastClick.attach(document.body);
