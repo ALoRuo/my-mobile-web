@@ -38,7 +38,6 @@
         display:flex;
         border-bottom: solid 1px #ececec;
         .pic{
-          height: 60px;
           width: 80px;
           border: 1px solid #ccc;
           margin-right: 10px;
@@ -108,6 +107,8 @@
     margin-top: 45px;
     background: #fff;
     margin-bottom: 10px;
+    text-align: center;
+    padding: 20px 0;
     p{
       text-align: center;
       color: #999;

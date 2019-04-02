@@ -24,6 +24,7 @@ export default class PayView extends React.Component{
                     ]}
                 >支付订单</NavBar>
                 <div className='pay-view-top'>
+                    <i className="iconfont icon-daizhifudingdan" style={{fontSize:60,color:"#7cb37c"}}/>
                     <p>订单提交成功</p>
                     <p>请在24小时内完成支付</p>
                     <p>支付金额：<span style={{color:"#f7500d"}}>￥180.0</span></p>

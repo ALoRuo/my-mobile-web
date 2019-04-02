@@ -1,7 +1,9 @@
 import React from "react";
 import { InputItem, NavBar, Icon, Drawer, Flex, WhiteSpace, Button } from 'antd-mobile';
 import history from 'utils/HistoryRedirection';
-import 'styles/orderListView.scss'
+import 'styles/orderListView.scss';
+import model from 'models/orderListViewModel'
+
 let data = [];
 for(let i =0;i<6;i++){
     let obj = {
@@ -12,14 +14,14 @@ for(let i =0;i<6;i++){
                 productName:'zoobi破洞高腰复古休闲浅色牛仔拖地长裤',
                 productSize:'蓝色预定;s',
                 productPrice:'129.0',
-                productCont:'1'
+                productCount:'1'
             },
             {
                 picUrl:'http://img2.imgtn.bdimg.com/it/u=3422642367,3859355415&fm=26&gp=0.jpg',
                 productName:'zoobi破洞高腰复古休闲浅色牛仔拖地长裤',
                 productSize:'蓝色预定;s',
                 productPrice:'129.0',
-                productCont:'2'
+                productCount:'2'
             },
         ]
 
@@ -50,6 +52,7 @@ export default class MainView extends React.Component {
         };
     }
     componentDidMount(){
+        model.getOrderList({})
         let {stateTypeList} = this.state;
         data.forEach(item=>{
             if(item.stateType === '1'){
@@ -109,7 +112,7 @@ export default class MainView extends React.Component {
                             <div className='order-item'>
                                 <div style={{padding:'6px 0 20px'}}>{item.shopName}</div>
                                 {item.orderList.map(order => {
-                                    totalPrice += order.productPrice*order.productCont;
+                                    totalPrice += order.productPrice*order.productCount;
                                     return(
                                         <div className="order-item-content">
                                             <div className="pic"><div style={{paddingBottom:'100%',backgroundImage:`url(${order.picUrl})`,backgroundSize:'cover'}}></div></div>
@@ -124,7 +127,7 @@ export default class MainView extends React.Component {
                                                     right: 0,
                                                 }}>
                                                     <p style={{marginBottom:6}}>${order.productPrice}</p>
-                                                    <p style={{color:'#eaa184',fontSize:12}}>X{order.productCont}</p>
+                                                    <p style={{color:'#eaa184',fontSize:12}}>X{order.productCount}</p>
                                                 </div>
 
                                             </div>

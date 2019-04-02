@@ -23,20 +23,32 @@ export default class MainView extends React.Component {
             discountValue:['yes'],
             sendWayValue: ['1'],
             sendTimeValue:['1'],
-            insuranceValue:['1']
+            insuranceValue:['1'],
+            receiveMessage:{},
+            orderList:[]
         }
     }
     componentDidMount(){
         model.getAllReceiveInfo({}).then(res=>{
-            res.receiverList = [];
             if(res.receiverList.length === 0){
                 alert(null, <div style={{padding:'0 35px'}}>您还没有收货信息，是否先填写收货信息保存</div>, [
                     { text: <span style={{fontSize:14}}>取消</span>, onPress: () => console.log('cancel') },
                     { text: <span style={{fontSize:14,color:'#f7500d'}}>去填写</span>, onPress: () => history.push('/addtoaddress') },
                 ])
             }else {
-
+                let receiverList = res.receiverList;
+                let receiveMessage = receiverList.find(item=>item.isDefault === 1);
+                if(receiveMessage){
+                    this.setState({receiveMessage});
+                }else{
+                    this.setState({receiveMessage:receiverList[0]});
+                }
             }
+            model.getBuyItems({}).then(res=>{
+                this.setState({
+                    orderList:res['order_detailList'],
+                })
+            })
         })
     }
     onPickerChange = (val,type) => {
@@ -45,10 +57,17 @@ export default class MainView extends React.Component {
         this.setState(state);
     };
     payResult = () => {
-        history.push('/payview')
+        const { receiveMessage } = this.state;
+        const {receiverName,receiverPhone,receiverAddress,receiverMail} = receiveMessage;
+        model.createOrder({receiverName,receiverPhone,receiverAddress,receiverMail}).then(()=>{
+            history.push('/payview')
+        })
+
     }
 
     render(){
+        const { receiveMessage,orderList } = this.state;
+        const {receiverName,receiverPhone,receiverAddress} = receiveMessage;
         const discountList = [
             {
                 label:
@@ -105,21 +124,23 @@ export default class MainView extends React.Component {
                 <div className='payment-body' style={{height:`calc(${window.innerHeight}px - 90px)`}}>
                     <div className='payment-address'>
                         <div style={{width:'100%',fontSize:14}}>
-                            收货人：<span>大丽</span>
-                            <span style={{float:'right'}}>18078786862</span>
+                            收货人：<span>{receiverName}</span>
+                            <span style={{float:'right'}}>{receiverPhone?receiverPhone.replace(/^(\d{3})\d{4}(\d{4})$/,'$1****$2'):''}</span>
                         </div>
-                        <div style={{color:'#666'}}>广东省深圳市南山区科兴科学园</div>
+                        <div style={{color:'#666'}}>{receiverAddress}</div>
                     </div>
                     <div className='payment-order'>
                         <div className='shop-message'>{data.shopName}</div>
-                        {data.productList.map(item =>{
+                        {orderList.map(item =>{
                             return (
                                 <div className='shop-product-list-item'>
-                                    <div className='pic'>pic</div>
+                                    <div className='pic'>
+                                        <div style={{backgroundImage:`url(${item.productPic})`,width:'100%',paddingBottom:'100%',backgroundRepeat:'no-repeat',backgroundSize:'cover'}}/>
+                                    </div>
                                     <div className='message'>
-                                        <div>{item.productName} <span style={{float:'right',color:'#4ebb4e'}}>X{item.count}</span></div>
-                                        <div>{item.selectMessage}</div>
-                                        <div>￥{item.price}</div>
+                                        <div>{item.productName} <span style={{float:'right',color:'#4ebb4e'}}>X{item.productQuantity}</span></div>
+                                        <div>{item.productAttr}</div>
+                                        <div>￥{item.productPrice}</div>
                                     </div>
                                 </div>
                             )

@@ -18,8 +18,8 @@ export default {
     getProductDetail(param){
         return axiosHttp.get(API.GET_PRODUCT_DETAIL, param,'json');
     },
-    //生成订单
-    createOderList(param){
-        return axiosHttp.post(API.CREATE_ORDER,param,'json')
+    //保存购物信息
+    saveOrderMessage(param){
+        return axiosHttp.post(API.SAVE_ORDER,param,'json')
     }
 }

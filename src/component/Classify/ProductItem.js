@@ -21,6 +21,7 @@ export default class MainView extends React.Component {
             imgHeight: 200,
             show:false,
             productCount:1,
+            isBuy:0,//如果点击加入购物车就是0，点击购买就是1
             dataSource:{
                 ppa:{
                     inputArrayList:[]
@@ -50,23 +51,40 @@ export default class MainView extends React.Component {
     //点击加入购物车
     addShoppingCart = () => {
         let {show} = this.state;
-        this.setState({show:!show})
+        this.setState({show:!show,isBuy:0})
     }
     goToPayProduct = () => {
         let {show} = this.state;
-        this.setState({show:!show});
+        this.setState({show:!show,isBuy:1});
+
     }
     //确认加入购物车
     addToShoppingCar = () => {
-        let {dataSource,productCount} = this.state;
-        carModel.addShoppingCart({
-            "product_id":dataSource.id,
-            "product_num":productCount,
-            "product_sort":this.state[dataSource.ppa.name]
-        }).then(res=>{
-            Toast.info('已加入购物车哦~',0.5);
-            this.setState({show:false})
-        })
+        let {dataSource,productCount,isBuy} = this.state;
+        if(isBuy){
+            model.saveOrderMessage({
+                item:[
+                    {
+                        productId:dataSource.id,
+                        productQuantity:productCount,
+                        productAttr:this.state[dataSource.ppa.name]
+                    }
+                ]
+            }).then(()=>{
+                this.setState({show:false});
+                history.push('/payment')
+            })
+        }else {
+            carModel.addShoppingCart({
+                "product_id":dataSource.id,
+                "product_num":productCount,
+                "product_sort":this.state[dataSource.ppa.name]
+            }).then(res=>{
+                Toast.info('已加入购物车哦~',0.5);
+                this.setState({show:false})
+            })
+        }
+
     }
     changeClassName = (type,value) => {
         let selectValue = this.state[type];

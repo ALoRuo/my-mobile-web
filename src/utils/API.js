@@ -28,6 +28,12 @@ export default {
     UPDATE_RECEIVE_INFO: prefixed+'user/UpdateReceiverInfo',
     //删除收货信息
     DELETE_RECEIVE_INFO: prefixed+'user/delete',
+    //保存购物信息
+    SAVE_ORDER:prefixed+'order/save',
     //生成订单
-    CREATE_ORDER:prefixed+'order/create',
+    ORDER_CREATE:prefixed+'order/create',
+    //订单展示列表
+    ORDER_LIST:prefixed+'order/list',
+    //获取购买信息
+    ORDER_GETITEMS: prefixed+'order/getItems'
 }
