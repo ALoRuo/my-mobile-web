@@ -3,8 +3,11 @@ import 'styles/userCenter.scss'
 import { List ,WhiteSpace} from 'antd-mobile';
 import history from 'utils/HistoryRedirection'
 import model from 'models/userCenterModel';
+import {connect} from 'react-redux';
+import userAction from 'store/actions/user-action'
+import {bindActionCreators} from 'redux';
 
-export default class MainView extends React.Component {
+class MainView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,8 +24,15 @@ export default class MainView extends React.Component {
         this.setState({
             user,
         })
+        console.log(this.props)
     }
+    test = () => {
+        let {login} = this.props.methods;
+        login({userName:'login1'});
+    }
+
     render(){
+        console.log(this.props)
         let {user} = this.state;
         return(
             <div className="user-content" style={{height:window.innerHeight-95}}>
@@ -37,7 +47,7 @@ export default class MainView extends React.Component {
                 <div style={{display:"flex",padding: '8px 0',borderBottom: '1px solid #ccc',background:'#fff'}}>
                     <div style={{flex:1}} >
                         <p className="small-p">积分</p>
-                        <p className="green-number">100</p>
+                        <p className="green-number" onClick={this.test}>100</p>
                     </div>
                     <div style={{flex:1}}>
                         <p className="small-p">优惠券</p>
@@ -76,3 +86,23 @@ export default class MainView extends React.Component {
         )
     }
 }
+let mapDispatchToProps = (dispatch)=>{
+    return {
+        // add(){
+        // 	dispatch(actionCreator.intNumber());
+        // },
+        // sub(){
+        // 	dispatch(actionCreator.decNumber());
+        // },
+        // input(val){
+        // 	dispatch(actionCreator.inputNumber(val));
+        // }
+
+        /*传入actionCreator和dispatch，此时无论有多少action全都映射到props.methods中，相当于语法糖*/
+        methods: bindActionCreators(userAction, dispatch)
+    }
+}
+let Connected = connect(state=>state,mapDispatchToProps)(MainView);
+
+export default Connected;
+

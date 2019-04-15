@@ -30,4 +30,6 @@ export default {
     DELETE_RECEIVE_INFO: prefixed+'user/delete',
     //生成订单
     CREATE_ORDER:prefixed+'order/create',
+    //取消订单
+    CANCEL_ORDER:prefixed+'order/cancel',
 }

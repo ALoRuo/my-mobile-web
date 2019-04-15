@@ -16,7 +16,7 @@ export default class MainView extends React.Component {
         }
     }
     componentDidMount(){
-        console.log(window.commInfo)
+        // console.log("initial state: ", store.getState());
     }
     changeTab = (selectTab) => {
         this.setState({selectTab},()=>{

@@ -12,6 +12,7 @@ module.exports = function override(config, env) {
         'utils':resolve('src/utils'),
         'models':resolve('src/models'),
         'images':resolve('src/images'),
+        'store':resolve('src/store')
     };
     return config;
 };
