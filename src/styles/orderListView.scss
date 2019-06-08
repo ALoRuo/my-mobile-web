@@ -23,6 +23,15 @@
     height: calc(100% - 115px);
     overflow: auto;
     padding: 0 10px;
+    .empty-order-list {
+      background-image: url('../images/empty.png');
+      width: 100px;
+      height: 100px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin: 0 auto;
+      margin-top: 40%;
+    }
     .order-item{
       background-color: #fff;
       border-radius: 10px;
@@ -58,5 +67,11 @@
         border-radius: 4px;
       }
     }
+  }
+}
+.search-order-input-view{
+  .am-list-item {
+    width: 70%;
+    left: 10%;
   }
 }

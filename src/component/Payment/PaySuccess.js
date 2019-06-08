@@ -18,15 +18,14 @@ export default class MainView extends React.Component {
                     style={{position:'fixed',top:0,width:'100%',background:'#ececec'}}
                     mode="light"
                     icon={<Icon type="left" color={'#7cb37c'} size={'lg'}/>}
-                    onLeftClick={() => history.go(-1)}
+                    onLeftClick={() => history.push('/home')}
                 >支付成功</NavBar>
                 <div className="result-example">
                     <Result
                         img={myImg('https://gw.alipayobjects.com/zos/rmsportal/pdFARIqkrKEGVVEwotFe.svg')}
                         title="支付成功"
-                        message={<div>998.00元 <del>1098元</del></div>}
                     />
-                    <Button inline style={{ margin: '15px' }} size="small" className='pay-result-button'>查看订单</Button>
+                    <Button inline style={{ margin: '15px' }} size="small" className='pay-result-button' onClick={()=>history.push('/orderlist')}>查看订单</Button>
                     <Button inline size="small" className='pay-result-button' onClick={()=>history.push('/')}>回到首页</Button>
                 </div>
             </div>

@@ -12,27 +12,83 @@ export default class MainView extends React.Component {
             selectedTab:'allTab',
             drawerOpen: false,
             settingData:[],
-        }
+            totalPage:0,
+            productCategoryId:''
+        };
+        this.param = 0;
     }
     componentDidMount(){
-        // console.log(this.props.params.id);
-        model.getProductList({
-            pageNum:1,
-            pageSize:5,
-            productCategoryId:this.props.match.params.id
-        }).then(res=>{
-            this.setState({settingData:res.list})
-        })
+        let url = this.props.match.url;
+        if(url.includes('/simpleproductlist')){
+            model.getSimpleProductList({
+                pageNum:1,
+                pageSize:5,
+                keyword:this.props.match.params.keyword,
+                param:0
+            }).then(res=>{
+                this.setState({settingData:res.list,totalPage:res.totalPage,propsParam:this.props.match})
+            })
+        }else {
+            model.getProductList({
+                pageNum:1,
+                pageSize:5,
+                productCategoryId:this.props.match.params.id,
+                param:0
+            }).then(res=>{
+                this.setState({settingData:res.list,totalPage:res.totalPage,propsParam:this.props.match})
+            })
+        }
+
     }
     onChange= (value) => {
         this.setState({ selectInputValue:value });
     };
-    handleSelect = (type) => {
-        this.setState({selectedTab:type})
+    handleSelect = (modelType,type) => {
+        this.setState({selectedTab:type});
+        let params = {};
+        if(this.props.match.url.includes('/simpleproductlist')){
+            params = {
+                    pageNum:1,
+                    pageSize:5,
+                    keyword:this.props.match.params.keyword,
+                    param:this.param
+                }
+        }else {
+            params = {
+                pageNum:1,
+                pageSize:5,
+                productCategoryId:this.props.match.params.id,
+                param:this.param
+            }
+        }
         if(type === 'selectTab'){
             this.onOpenChange();
         }else {
             this.setState({ drawerOpen: false });
+            if(type === 'salesTab'){
+                this.param = 2;
+                if(this.props.match.url.includes('/simpleproductlist')){
+                    model.getSimpleProductList({...params,param:this.param}).then(res=>{
+                        this.setState({settingData:res.list,totalPage:res.totalPage,propsParam:this.props.match})
+                    })
+                }else{
+                    model.getProductList({...params,param:this.param}).then(res=>{
+                        this.setState({settingData:res.list,totalPage:res.totalPage,propsParam:this.props.match})
+                    })
+                }
+
+            }else if(type === 'allTab'){
+                this.param = 0;
+                if(this.props.match.url.includes('/simpleproductlist')){
+                    model.getSimpleProductList({...params,param:this.param}).then(res=>{
+                        this.setState({settingData:res.list,totalPage:res.totalPage,propsParam:this.props.match})
+                    })
+                }else{
+                    model.getProductList({...params,param:this.param}).then(res=>{
+                        this.setState({settingData:res.list,totalPage:res.totalPage,propsParam:this.props.match})
+                    })
+                }
+            }
         }
     }
     //虚拟键盘点击确认时的回调函数
@@ -83,7 +139,8 @@ export default class MainView extends React.Component {
         )
     }
     render(){
-        let {selectInputValue,selectedTab,drawerOpen,settingData} = this.state;
+        let {id,keyword,selectedTab,drawerOpen,settingData,totalPage,propsParam} = this.state;
+        const modelType = id || keyword;
         return(
             <div className='product-list'>
                 <NavBar
@@ -92,23 +149,24 @@ export default class MainView extends React.Component {
                     icon={<Icon type="left" color={'#7cb37c'} size={'lg'}/>}
                     onLeftClick={() => history.go(-1)}
                 >
-                    <InputItem
-                        clear
-                        placeholder="请输入商品关键词"
-                        value={selectInputValue}
-                        onChange={this.onChange}
-                        onVirtualKeyboardConfirm={this.comfirmSelect}
-                    />
+                    {/*<InputItem*/}
+                        {/*clear*/}
+                        {/*placeholder="请输入商品关键词"*/}
+                        {/*value={selectInputValue}*/}
+                        {/*onChange={this.onChange}*/}
+                        {/*onVirtualKeyboardConfirm={this.comfirmSelect}*/}
+                    {/*/>*/}
+                    商品列表
                 </NavBar>
                 <div className='select-bar'>
-                    <div className={'select-bar-item '+ (selectedTab === 'allTab'?'select-active':null) } onClick={()=>this.handleSelect('allTab')}>全部</div>
-                    <div className={'select-bar-item '+ (selectedTab === 'salesTab'?'select-active':null)} onClick={()=>this.handleSelect('salesTab')}>销量</div>
-                    <div className={'select-bar-item '+ (selectedTab === 'priceTab'?'select-active':null)} onClick={()=>this.handleSelect('priceTab')}>价格</div>
-                    <div className={'select-bar-item '+ (selectedTab === 'selectTab'?'select-active':null)} onClick={()=>this.handleSelect('selectTab')} >筛选</div>
+                    <div className={'select-bar-item '+ (selectedTab === 'allTab'?'select-active':null) } onClick={()=>this.handleSelect(modelType,'allTab')}>全部</div>
+                    <div className={'select-bar-item '+ (selectedTab === 'salesTab'?'select-active':null)} onClick={()=>this.handleSelect(modelType,'salesTab')}>销量</div>
+                    <div className={'select-bar-item '+ (selectedTab === 'priceTab'?'select-active':null)} onClick={()=>this.handleSelect(modelType,'priceTab')}>价格</div>
+                    <div className={'select-bar-item '+ (selectedTab === 'selectTab'?'select-active':null)} onClick={()=>this.handleSelect(modelType,'selectTab')} >筛选</div>
                 </div>
 
                 {/*</Drawer>*/}
-                <ClassifyProductList settingData={settingData}/>
+                <ClassifyProductList settingData={settingData} totalPage={totalPage} propsParam={propsParam} saleParam={this.param}/>
                 <Drawer
                     className="my-drawer"
                     style={{ minHeight: document.documentElement.clientHeight-80,display:drawerOpen?'block':'none' }}

@@ -5,5 +5,9 @@ export default {
     login(param){
         // return axiosHttp.get('http://120.78.200.79:9990/productCategory/list/0', param);
         return axiosHttp.post(API.LOGIN, param,'json');
+    },
+    register(param){
+        // return axiosHttp.get('http://120.78.200.79:9990/productCategory/list/0', param);
+        return axiosHttp.post(API.REGISTER, param,'json');
     }
 }

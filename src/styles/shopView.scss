@@ -1,0 +1,106 @@
+@import "common";
+.shop-view{
+  background: $background-color;
+  .shop-content{
+    .shop-header{
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      padding: 3% 0;
+      border-bottom: $border-style;
+      align-items: center;
+      background: #fff;
+      .shop-pic{
+        flex:1 1;
+      }
+      .shop-name{
+        flex:1 1;
+        p:first-child{
+          font-size: 20px;
+          padding: 16px 0;
+          margin-top: -16px;
+          color: #666;
+        }
+      }
+      .shop-collect{
+        flex:1 1;
+        p{
+          width: 62%;
+          border: 1px solid #7cb37c;
+          padding: 6px;
+          text-align: center;
+          background: #7cb37c;
+          color: #fff;
+          border-radius: 4px;
+        }
+      }
+    }
+    .shop-introduction{
+      padding:4px 6px;
+      text-align: center;
+      border-bottom: $border-style;
+      background: #fff;
+      .introduction-content{
+        margin-bottom: 20px;
+        color: #999;
+        line-height: 1.5;
+        letter-spacing: 1px;
+      }
+      .text-ellipsis-3{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        /* autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /* autoprefixer: on */
+      }
+    }
+    .shop-product-list{
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      flex-wrap:wrap;
+      background: #fff;
+      .shop-product-item{
+        width:50%;
+        height: 200px;
+        padding: 20px 35px;
+        text-align: center;
+
+        div{
+          .product-pic{
+            width: 100%;
+            padding-bottom: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
+        }
+      }
+    }
+  }
+  .shopproduct-list{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap:wrap;
+    background: #fff;
+    .shopproduct-item{
+      width:50%;
+      height: 200px;
+      padding: 20px 35px;
+      text-align: center;
+      div{
+        .shopproduct-pic{
+          width: 100%;
+          padding-bottom: 100%;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+  .am-activity-indicator {
+    justify-content: center;
+  }
+}

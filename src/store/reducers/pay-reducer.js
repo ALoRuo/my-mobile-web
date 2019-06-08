@@ -9,7 +9,12 @@ export default function(state={}, action) {
                 ...action.payload
             }
         }
-
+        case 'ORDER_ID': {
+            return {
+                ...state,
+                ...action.payload
+            }
+        }
         default:
             return state;
     }

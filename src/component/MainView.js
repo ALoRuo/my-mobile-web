@@ -32,7 +32,7 @@ export default class MainView extends React.Component {
         let herf = window.location.hash;
         let navTitle = '';
         switch (herf) {
-            case '#/':navTitle='Mall商城';break;
+            case '#/home':navTitle='Mall商城';break;
             case '#/classify':navTitle='商品分类';break;
             case '#/shoppingCart':navTitle='购物车';break;
             case '#/userMessage':navTitle='用户中心';break;
@@ -52,7 +52,6 @@ export default class MainView extends React.Component {
                 >{navTitle}</NavBar>
 
                 <Route path='/home' component={Home}/>
-                {/**/}
                 <Route path='/classify' component={ClassifyView}/>
                 <Route path='/shoppingCart' component={ShoppingCart}/>
                 <Route path='/userMessage' component={UserCenter}/>

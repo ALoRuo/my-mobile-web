@@ -1,14 +1,10 @@
 /**
- * Created by dell on 2019/4/15.
+ * Created by dell on 2019/4/24.
  */
-const initState = {
-    userName:'login'
-}
 export default function(state={}, action) {
     switch (action.type) {
-        case 'USER_MESSAGE': {
+        case 'GET_COMMENTS_LIST': {
             return {
-                ...state,
                 ...action.payload
             }
         }

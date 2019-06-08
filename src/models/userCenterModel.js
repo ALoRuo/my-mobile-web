@@ -22,6 +22,11 @@ export default {
     },
     deleteReceiveInfo(param){
         return axiosHttp.post(API.DELETE_RECEIVE_INFO,param,'json')
-    }
-
+    },
+    getMyCommentList(param){
+        return axiosHttp.post(API.MY_COMMENTS_LIST,param,'json')
+    },
+    getCollectShopList(param){
+        return axiosHttp.post(API.GET_COLLECT_SHOP_LIST,param,'json');
+    },
 }

@@ -37,6 +37,12 @@ a{
   -webkit-box-orient: vertical;
   /* autoprefixer: on */
 }
+//省略至一行
+.text-ellipsis-1{
+  overflow: hidden;/*超出部分隐藏*/
+  white-space: nowrap;/*不换行*/
+  text-overflow:ellipsis;/*超出部分文字以...显示*/
+}
 .content-body{
   position: relative;
   top:45px;

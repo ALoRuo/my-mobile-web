@@ -1,0 +1,70 @@
+@import "common";
+.home-view{
+  position: relative;
+  top:45px;
+  background: $background-color;
+  .search-input-content{
+    padding:5px 0;
+    background-color: #e4e2e2;
+    position: relative;
+    .search-icon{
+      background-image: url('../images/home-search.png');
+      height: 35px;
+      width: 35px;
+      background-size: cover;
+      position: absolute;
+      left: 3%;
+    }
+    .am-list-item.am-input-item,.am-list-item{
+      height: 35px !important;
+      min-height: 35px;
+    }
+    .search-input{
+      width: 70%;
+      border-radius: 10px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      padding: 0 10px;
+
+    }
+  }
+  .flash-sale-content{
+    background: #fff;
+    margin-top: 10px;
+    border-top: $border-style;
+    .flash-sale-head{
+      overflow: hidden;
+      padding:10px 35px;
+    }
+    .flash-sale-body{
+      display: flex;
+      flex-wrap:wrap;
+      .flash-sale-item{
+        width:50%;
+        padding: 10px 35px;
+        text-align: center;
+
+        .sale-pic{
+          width:100%;
+          padding-bottom: 100%;
+          border:1px solid #ccc;
+          margin-bottom: 5px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          position: relative;
+          .new-icon{
+            width:30px;
+            height:30px;
+            background-image: url('../images/new-update.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: absolute;
+            top: -15px;
+            right: -15px;
+          }
+        }
+      }
+    }
+  }
+}

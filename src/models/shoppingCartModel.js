@@ -17,4 +17,11 @@ export default {
     delAllShoppingCart(param){
         return axiosHttp.post(API.DEL_ALL_PRODUCTS, param,'json');
     },
+    //保存购物信息
+    saveOrderMessage(param){
+        return axiosHttp.post(API.SAVE_ORDER,param,'json')
+    },
+    getBuyItems(param){
+        return axiosHttp.post(API.ORDER_GETITEMS,param,'json')
+    },
 }

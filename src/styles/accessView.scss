@@ -1,0 +1,87 @@
+@import "common";
+//评价页面
+.assess-view{
+  background: $background-color;
+  .access-icon{
+    font-size: 30px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  .select-bar{
+    background-color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 45px;
+    position: relative;
+    top: 45px;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+    .active{
+      color:$priceColor;
+    }
+    div{
+      flex:1 1;
+      text-align: center;
+      color: #666;
+      font-size: 12px;
+    }
+  }
+  .assess-content{
+    background-color: #fff;
+    position: relative;
+    top: 55px;
+    overflow: auto;
+    .empty-access-list{
+      background-image: url('../images/empty.png');
+      width: 27%;
+      height: 20%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin: 0 auto;
+      margin-top: 20%;
+    }
+
+    .assess-item{
+      padding:8px 3px;
+      .customer-pic{
+        width:30px;
+        height: 30px;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        float: left;
+        margin-right: 5px;
+      }
+      .customer-info{
+        .customer-name{
+          font-size: 12px;
+          padding: 4px 9px;
+          border: 1px solid #7cb37c;
+          /* display: inline-block; */
+          border-radius: 12px;
+          background: #7cb37c;
+          color: #fff;
+          float: left;
+        }
+        .product-info{
+          color:#666;
+          float: right;
+        }
+        margin-bottom:5px;
+      }
+      .pic-assess{
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+        .pic-item{
+          height: 100px;
+          width: 100px;
+          margin: 5px;
+          background-size: cover;
+        }
+      }
+    }
+
+  }
+}

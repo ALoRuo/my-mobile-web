@@ -2,7 +2,11 @@ import React from "react";
 import { NavBar, Icon, Picker, List, InputItem, Modal } from 'antd-mobile';
 import 'styles/payment.scss';
 import history from 'utils/HistoryRedirection';
-import model from 'models/paymentModel';
+import model from 'models/paymentModel'
+import {connect} from 'react-redux';
+import payAction from "store/actions/pay-action";
+import orderAction from "store/actions/order-action";
+import {bindActionCreators} from 'redux';
 
 const alert = Modal.alert;
 
@@ -16,27 +20,58 @@ for (let i = 0; i<3 ;i++)
         price:99
     })
 }
-export default class MainView extends React.Component {
+class MainView extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             discountValue:['yes'],
             sendWayValue: ['1'],
             sendTimeValue:['1'],
-            insuranceValue:['1']
+            insuranceValue:['1'],
+            receiveMessage:{},
+            orderList:[],
+            amount:0
         }
     }
     componentDidMount(){
+
+
         model.getAllReceiveInfo({}).then(res=>{
-            res.receiverList = [];
             if(res.receiverList.length === 0){
                 alert(null, <div style={{padding:'0 35px'}}>您还没有收货信息，是否先填写收货信息保存</div>, [
                     { text: <span style={{fontSize:14}}>取消</span>, onPress: () => console.log('cancel') },
                     { text: <span style={{fontSize:14,color:'#f7500d'}}>去填写</span>, onPress: () => history.push('/addtoaddress') },
                 ])
             }else {
-
+                let receiverList = res.receiverList;
+                let receiveMessage = receiverList.find(item=>item.isDefault === 1);
+                if(receiveMessage){
+                    this.setState({receiveMessage});
+                    let {orderMessage} = this.props;
+                    let {addressMessage} = orderMessage;
+                    if(addressMessage){
+                        this.setState({
+                            receiveMessage:addressMessage
+                        })
+                    }
+                }else{
+                    this.setState({receiveMessage:receiverList[0]});
+                    let {orderMessage} = this.props;
+                    let {addressMessage} = orderMessage;
+                    if(addressMessage){
+                        this.setState({
+                            receiveMessage:addressMessage
+                        })
+                    }
+                }
             }
+            model.getBuyItems({}).then(res=>{
+                this.setState({
+                    orderList:res['order_detailList'],
+                    amount:res['order_amount'],
+                    totalQuantities:res['order_quantities']
+                })
+            })
         })
     }
     onPickerChange = (val,type) => {
@@ -45,10 +80,26 @@ export default class MainView extends React.Component {
         this.setState(state);
     };
     payResult = () => {
-        history.push('/payview')
+        let {flag} = this.props.match.params;
+        const { receiveMessage } = this.state;
+        const {receiverName,receiverPhone,receiverAddress,receiverMail} = receiveMessage;
+        model.createOrder({receiverName,receiverPhone,receiverAddress,receiverMail,flag}).then((item)=>{
+            let {payAmount,getOrderId} = this.props.methods;
+            const { amount} = this.state;
+            payAmount(amount);
+            getOrderId(item['order_id']);
+            history.push('/payview')
+        })
+
+    }
+    selectAddress = () => {
+        history.push('/selectaddresslist');
     }
 
     render(){
+        const { receiveMessage,orderList ,amount, totalQuantities} = this.state;
+        const {receiverName,receiverPhone,receiverAddress} = receiveMessage;
+        console.log(receiveMessage)
         const discountList = [
             {
                 label:
@@ -78,7 +129,7 @@ export default class MainView extends React.Component {
             {
                 label:
                     (<div>
-                        <span className='fontsize-12'>24:00前付款，预计3月6日（后天）送达</span>
+                        <span className='fontsize-12'>24:00前付款，预计后天送达</span>
                     </div>),
                 value: '1',
 
@@ -103,27 +154,39 @@ export default class MainView extends React.Component {
                     onLeftClick={() => history.go(-1)}
                 >确认订单</NavBar>
                 <div className='payment-body' style={{height:`calc(${window.innerHeight}px - 90px)`}}>
-                    <div className='payment-address'>
+                    <div className='payment-address' onClick={this.selectAddress}>
                         <div style={{width:'100%',fontSize:14}}>
-                            收货人：<span>大丽</span>
-                            <span style={{float:'right'}}>18078786862</span>
+                            收货人：<span>{receiverName}</span>
+                            <span style={{float:'right'}}>{receiverPhone?receiverPhone.replace(/^(\d{3})\d{4}(\d{4})$/,'$1****$2'):''}</span>
                         </div>
-                        <div style={{color:'#666'}}>广东省深圳市南山区科兴科学园</div>
+                        <div style={{color:'#666'}}>{receiverAddress}</div>
                     </div>
                     <div className='payment-order'>
-                        <div className='shop-message'>{data.shopName}</div>
-                        {data.productList.map(item =>{
-                            return (
-                                <div className='shop-product-list-item'>
-                                    <div className='pic'>pic</div>
-                                    <div className='message'>
-                                        <div>{item.productName} <span style={{float:'right',color:'#4ebb4e'}}>X{item.count}</span></div>
-                                        <div>{item.selectMessage}</div>
-                                        <div>￥{item.price}</div>
-                                    </div>
-                                </div>
-                            )
-                        })}
+                        {
+                            orderList.map(item =>{
+                               return(
+                                   <div>
+                                       <div className='shop-message'>{item[0].productBrand}</div>
+                                        {
+                                            item.map(productItem=>{
+                                                return (
+                                                    <div className='shop-product-list-item'>
+                                                        <div className='pic'>
+                                                            <div style={{backgroundImage:`url(${productItem.productPic.split(',')[0]})`,width:'100%',paddingBottom:'100%',backgroundRepeat:'no-repeat',backgroundSize:'cover'}}/>
+                                                        </div>
+                                                        <div className='message'>
+                                                            <div>{productItem.productName} <span style={{float:'right',color:'#4ebb4e'}}>X{productItem.productQuantity}</span></div>
+                                                            <div>{productItem.productAttr}</div>
+                                                            <div style={{color:'#f7500d'}}>￥{productItem.productPrice}</div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                   </div>
+                                )
+                            })
+                        }
 
                     </div>
                     <List style={{ backgroundColor: 'white',marginBottom:10 }} className="picker-list">
@@ -167,17 +230,27 @@ export default class MainView extends React.Component {
                         ><span style={{fontSize:14,color:'#666'}}>买家留言</span></InputItem>
                         <List.Item >
                             <div className='fontsize-14' style={{float:'right'}}>
-                                <span style={{marginRight:15}}>共1件商品</span>
-                                小计：<span style={{color:'#bb5126'}}>￥36.00</span>
+                                <span style={{marginRight:15}}>共{totalQuantities}件商品</span>
+                                小计：<span style={{color:'#bb5126'}}>￥{Number(amount).toFixed(2)}</span>
                             </div>
                         </List.Item>
                     </List>
                 </div>
                 <div className='payment-bottom'>
-                    <p>合计：￥36.0</p>
+                    <p>合计：￥<span style={{color:'#f7500d'}}>{Number(amount).toFixed(2)}</span></p>
                     <p onClick={this.payResult}>提交订单</p>
                 </div>
             </div>
         )
     }
 }
+let mapDispatchToProps = (dispatch)=>{
+    return {
+        /*传入actionCreator和dispatch，此时无论有多少action全都映射到props.methods中，相当于语法糖*/
+        methods: bindActionCreators(payAction, dispatch),
+        orderMethods:bindActionCreators(orderAction, dispatch),
+    }
+}
+let Connected = connect(state=>state,mapDispatchToProps)(MainView);
+
+export default Connected;

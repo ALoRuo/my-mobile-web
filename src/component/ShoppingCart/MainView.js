@@ -23,7 +23,7 @@ export default class MainView extends React.Component {
             selectAll:false,
         }
     }
-    componentWillMount(){
+    componentDidMount(){
        this.initShoppingCar();
        this.setState({checkedList:[]},()=>console.log(this.state.checkedList))
     }
@@ -49,7 +49,9 @@ export default class MainView extends React.Component {
         // console.log(e,val);
     }
     // 0表示减，1表示加
-    handleStepChange = (step,value,index,item) => {
+    handleStepChange = (e,step,value,index,item) => {
+        e.stopPropagation();
+        e.cancelBubble = true;
         let {dataSource} = this.state;
         if(step === 0){
             if(dataSource[index].productNum !== 1){
@@ -94,7 +96,7 @@ export default class MainView extends React.Component {
         }
     }
     toggleSelectedAll = (e) => {
-        let {selectAll} = this.state;
+        let {selectAll,dataSource} = this.state;
         this.setState({selectAll:!selectAll},()=>{
             if(!selectAll){
                 let checkBoxs = document.querySelectorAll('.checkbox-item');
@@ -110,6 +112,7 @@ export default class MainView extends React.Component {
 
 
                 })
+                this.setState({checkedList:dataSource})
             }else {
                 let checkBoxs = document.querySelectorAll('.checkbox-item');
                 //防止数组第一个元素没有被绑定到
@@ -124,6 +127,7 @@ export default class MainView extends React.Component {
 
 
                 })
+                this.setState({checkedList:[]})
             }
         })
 
@@ -131,8 +135,21 @@ export default class MainView extends React.Component {
     }
     paymentFn = () => {
         let { checkedList } = this.state;
+        let orderItems = [];
+        checkedList.forEach(item=>{
+            let orderItem = {
+                productId:item.productId,
+                productQuantity:item.productNum,
+                productAttr:item['product_sort']
+            }
+            orderItems.push(orderItem)
+        })
         if(checkedList.length>0){
-            history.push('/payment');
+            model.saveOrderMessage({
+                item:orderItems
+            }).then(()=>{
+                history.push('/payment/1')
+            })
         }else {
             Toast.info('您还没有选择宝贝哦！', 1);
         }
@@ -164,15 +181,21 @@ export default class MainView extends React.Component {
                             item.shopCarId = index+item.productId;
                             return (
                                 <CheckboxItem key={index} onChange={(e) => this.handleCheckChange(e,item)} className='checkbox-item'>
-                                    <div className='shopping-cart-item' onClick={()=>history.push(`/productitem/${item.productName}/${item.productId}`)}>
+                                    <div className='shopping-cart-item' onClick={(e)=>{e.preventDefault();history.push(`/productitem/${item.productName}/${item.productId}`)}}>
                                         <div style={{
                                             display:'inline-block',
                                             width:'26%',
                                             height:'83%',
                                             marginTop:'2%',
-                                            border:'1px solid #ccc'
-                                        }}>pic</div>
-                                        <i className='iconfont icon-lajitong' style={{position:'absolute',right: 10,color: '#666'}} onClick={()=>{
+                                            border:'1px solid #ccc',
+                                            backgroundImage:`url(${item.productIcon})`,
+                                            backgroundSize:'cover',
+                                            backgroundRepeat:'no-repeat'
+                                        }}/>
+                                        <i className='iconfont icon-lajitong' style={{position:'absolute',right: 10,color: '#666'}} onClick={(e)=>{
+                                            window.event.cancelBubble = true;
+                                            e.stopPropagation();
+                                            e.preventDefault();
                                             alert('删除宝贝', '是否确定要删除宝贝', [
                                                 { text: '取消', onPress: () => console.log('cancel') },
                                                 { text: '确定', onPress: () => {
@@ -185,9 +208,9 @@ export default class MainView extends React.Component {
                                             <p style={{color:'#666',fontSize:12}}>{item.product_sort}</p>
                                             <p style={{color:'#f7500d'}}>￥{item.productPrice}</p>
                                             <div className="count-step">
-                                                <span className='left' onClick={()=>this.handleStepChange(0,item.productCount,index,item)}>-</span>
+                                                <span className='left' onClick={(e)=>this.handleStepChange(e,0,item.productCount,index,item)}>-</span>
                                                 <span className='center'>{item.productNum}</span>
-                                                <span className='right' onClick={()=>this.handleStepChange(1,item.productCount,index,item)}>+</span>
+                                                <span className='right' onClick={(e)=>this.handleStepChange(e,1,item.productCount,index,item)}>+</span>
                                             </div>
                                         </div>
                                     </div>

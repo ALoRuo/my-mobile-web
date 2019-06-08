@@ -1,5 +1,7 @@
+/**
+ * Created by dell on 2019/5/7.
+ */
 import React from "react";
-import axios from "axios";
 import { WhiteSpace, InputItem, Button, NavBar, Icon, Modal } from 'antd-mobile';
 import 'styles/loginPage.scss'
 import model from 'models/loginModel';
@@ -20,29 +22,41 @@ class MainView extends React.Component {
     login = () => {
         let {userName,passWord} = this.state;
         let {login} = this.props.methods;
-        model.login({
+        model.register({
             user_name: userName,
             pass_word: passWord
         }).then(res=>{
-           // window.commInfo.loginSuccess = true;
-           window.commInfo.userName = res.userName;
-           window.commInfo.token = res.token;
-           let token = res.userId+"_"+res.token;
-           localStorage.setItem('token',token);
-           localStorage.setItem('user',JSON.stringify(res));
-           login(res);
-            // axios.defaults.headers.common['token'] = `${res.userId}_${res.token}`;
-           // window.commInfo.token=`${res.userId}_${res.token}`
-           history.push('/')
+            // // window.commInfo.loginSuccess = true;
+            // window.commInfo.userName = res.userName;
+            // window.commInfo.token = res.token;
+            // let token = res.userId+"_"+res.token;
+            // localStorage.setItem('token',token);
+            // localStorage.setItem('user',JSON.stringify(res));
+            // login(res);
+            // // axios.defaults.headers.common['token'] = `${res.userId}_${res.token}`;
+            // // window.commInfo.token=`${res.userId}_${res.token}`
+            // history.push('/')
+            model.login({
+                user_name: userName,
+                pass_word: passWord
+            }).then(res=>{
+                // window.commInfo.loginSuccess = true;
+                window.commInfo.userName = res.userName;
+                window.commInfo.token = res.token;
+                let token = res.userId+"_"+res.token;
+                localStorage.setItem('token',token);
+                localStorage.setItem('user',JSON.stringify(res));
+                login(res);
+                // axios.defaults.headers.common['token'] = `${res.userId}_${res.token}`;
+                // window.commInfo.token=`${res.userId}_${res.token}`
+                history.push('/')
+            })
         },error=>{
             alert('',<span>{error.errMsge}</span>, [
                 { text: '确认', onPress: () => this.setState({userName:'',passWord:''}) },
                 { text: '取消', onPress: () => this.setState({userName:'',passWord:''}) },
             ])
         })
-    }
-    handelRegisters = () =>{
-        history.push('/register')
     }
     render(){
         let {userName,passWord} = this.state;
@@ -57,11 +71,11 @@ class MainView extends React.Component {
                     // ]}
                     onLeftClick={() => history.go(-1)}
                 >
-                    用户登录
+                    用户注册
                 </NavBar>
                 <div style={{marginTop:45}}>
                     <div style={{textAlign:'center',padding:'30px 0'}}>
-                        <i className='iconfont icon-mall' style={{color:'#efb45a',fontSize:60}}/>
+                        <i className='iconfont icon-zhuce' style={{color:'#efb45a',fontSize:60}}/>
                     </div>
 
                     <InputItem
@@ -79,8 +93,8 @@ class MainView extends React.Component {
                 </div>
 
                 <WhiteSpace size="lg" />
-                <Button style={{background:'#7cb37c',color:'#fff'}} onClick={this.login}>登录</Button>
-                <div style={{textAlign:'center',textDecoration:'underline',color:'#8ca98c',marginTop:10}} onClick={this.handelRegisters}>立即注册</div>
+                <Button style={{background:'#7cb37c',color:'#fff'}} onClick={this.login}>立即注册</Button>
+                <div style={{textAlign:'center',textDecoration:'underline',color:'#8ca98c',marginTop:10}}>忘记密码</div>
             </div>
         )
     }

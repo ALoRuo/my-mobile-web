@@ -1,17 +1,27 @@
 import React from "react";
 import { Result, Icon, NavBar, List } from 'antd-mobile';
-import history from 'utils/HistoryRedirection'
+import history from 'utils/HistoryRedirection';
+import model from 'models/paymentModel';
+import {connect} from 'react-redux';
+import payAction from "store/actions/pay-action";
+import {bindActionCreators} from 'redux';
 
-export default class PayView extends React.Component{
+class PayView extends React.Component{
     constructor(props){
         super(props);
         this.state = {};
     }
     paySuccess = () => {
-        history.push('/paysuccess')
+        model.payOrder({
+            'order_id':this.props.payMessage.orderId
+        }).then(()=>{
+            history.push('/paysuccess')
+        })
+
     }
 
     render(){
+        console.log(this.props);
         return(
             <div className='try-to-pay'>
                 <NavBar
@@ -20,13 +30,14 @@ export default class PayView extends React.Component{
                     icon={<Icon type="left" color={'#7cb37c'} size={'lg'}/>}
                     onLeftClick={() => history.go(-1)}
                     rightContent={[
-                        <Icon type="cross" size={'lg'} onClick={()=>console.log('用来完成未付款订单')}/>,
+                        <Icon type="cross" size={'lg'} onClick={() => history.go(-1)}/>,
                     ]}
                 >支付订单</NavBar>
                 <div className='pay-view-top'>
+                    <i className="iconfont icon-daizhifudingdan" style={{fontSize:60,color:"#7cb37c"}}/>
                     <p>订单提交成功</p>
                     <p>请在24小时内完成支付</p>
-                    <p>支付金额：<span style={{color:"#f7500d"}}>￥180.0</span></p>
+                    <p>支付金额：<span style={{color:"#f7500d"}}>￥{this.props.payMessage.totalPrice}</span></p>
                 </div>
                 <div>
                     <List style={{ backgroundColor: 'white',marginBottom:10 }} className="picker-list">
@@ -40,3 +51,6 @@ export default class PayView extends React.Component{
         )
     }
 }
+let Connected = connect(state=>state)(PayView);
+
+export default Connected;

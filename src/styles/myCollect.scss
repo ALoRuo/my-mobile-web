@@ -1,0 +1,15 @@
+@import "common";
+.collect-view{
+  .my-list .spe .am-list-extra {
+    flex-basis: initial;
+  }
+  .collect-shop-pic{
+    width: 100px;
+    height: 100px;
+    float: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 10px;
+  }
+}

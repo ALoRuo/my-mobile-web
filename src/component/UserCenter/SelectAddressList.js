@@ -3,9 +3,12 @@ import { NavBar, Icon, Modal } from 'antd-mobile';
 import history from 'utils/HistoryRedirection';
 import 'styles/addressView.scss';
 import model from 'models/userCenterModel';
+import {connect} from 'react-redux';
+import orderAction from "store/actions/order-action";
+import {bindActionCreators} from 'redux';
 
 const alert = Modal.alert;
-export default class MainView extends React.Component {
+class MainView extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -25,10 +28,10 @@ export default class MainView extends React.Component {
         alert(null, '是否删除该条收货信息', [
             { text: <span style={{fontSize:14}}>取消</span>, onPress: () => console.log('cancel') },
             { text: <span style={{fontSize:14,color:'#f7500d'}}>删除</span>, onPress: () => {
-                    model.deleteReceiveInfo({id}).then(()=>{
-                        this.initList();
-                    })
-                } },
+                model.deleteReceiveInfo({id}).then(()=>{
+                    this.initList();
+                })
+            } },
         ])
 
     }
@@ -38,6 +41,12 @@ export default class MainView extends React.Component {
             this.initList();
         })
     }
+    setAddress = (item) => {
+       let {setAddress} = this.props.methods;
+        setAddress(item);
+        history.go(-1);
+    }
+
     render(){
         let { dataSource } = this.state;
         return(
@@ -59,28 +68,28 @@ export default class MainView extends React.Component {
                                 <p style={{fontSize:12,color:'#ec9f5b'}}>请点击新增收货信息去填写~</p>
                             </div>
                             :
-                        dataSource.map(item=><div className='address-list-item'>
-                                <div className="name-phone">
-                                    <span>{item.receiverName}</span>
-                                    <span style={{float: 'right',
-                                        marginRight: '45px'}}>{item.receiverPhone.replace(/^(\d{3})\d{4}(\d{4})$/,'$1****$2')}</span>
-                                </div>
-                                <div className="detail-address">
-                                    收货地址：{item.receiverAddress}
-                                </div>
-                                <div className='edit-area'>
-                                    <div style={{float:'left'}}>
-                                        <i className='iconfont icon-gouxuanquanx' style={{marginRight:4,color:item.isDefault?'#23e423':'#ccc'}} onClick={()=>this.setDefault(item)}/>设为默认
+                            dataSource.map(item=><div className='address-list-item' onClick={()=>this.setAddress(item)}>
+                                    <div className="name-phone">
+                                        <span>{item.receiverName}</span>
+                                        <span style={{float: 'right',
+                                            marginRight: '45px'}}>{item.receiverPhone.replace(/^(\d{3})\d{4}(\d{4})$/,'$1****$2')}</span>
                                     </div>
-                                    <div style={{float:'right'}} onClick={()=>history.push(`/changereceiveinfo/${item.id}`)}>
-                                        <i className='iconfont  icon-iconfontedit' style={{marginRight:4}}/>编辑
+                                    <div className="detail-address">
+                                        收货地址：{item.receiverAddress}
                                     </div>
-                                    <div style={{float:'right',marginRight:10}} onClick={()=>this.handleDelete(item.id)}>
-                                        <i className='iconfont icon-lajitong' style={{marginRight:4}}/>删除
+                                    <div className='edit-area'>
+                                        <div style={{float:'left'}}>
+                                            <i className='iconfont icon-gouxuanquanx' style={{marginRight:4,color:item.isDefault?'#23e423':'#ccc'}} onClick={()=>this.setDefault(item)}/>设为默认
+                                        </div>
+                                        <div style={{float:'right'}} onClick={()=>history.push(`/changereceiveinfo/${item.id}`)}>
+                                            <i className='iconfont  icon-iconfontedit' style={{marginRight:4}}/>编辑
+                                        </div>
+                                        <div style={{float:'right',marginRight:10}} onClick={()=>this.handleDelete(item.id)}>
+                                            <i className='iconfont icon-lajitong' style={{marginRight:4}}/>删除
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
+                            )
                     }
                     <div style={{position:'fixed',bottom:0,width: '100%', padding: '10px 0', borderTop: '1px solid #ccc', boxShadow: '0 -2px 6px #ccc'}}>
                         <div className='add-address-btn'  onClick={()=>history.push('/addtoaddress')}><i className='iconfont icon-jia1'/>新增收货信息</div>
@@ -91,3 +100,12 @@ export default class MainView extends React.Component {
         )
     }
 }
+let mapDispatchToProps = (dispatch)=>{
+    return {
+        /*传入actionCreator和dispatch，此时无论有多少action全都映射到props.methods中，相当于语法糖*/
+        methods: bindActionCreators(orderAction, dispatch)
+    }
+}
+let Connected = connect(state=>state,mapDispatchToProps)(MainView);
+
+export default Connected;

@@ -22,11 +22,14 @@
     height:100%;
     overflow: auto;
     background: #ececec;
-    .inline{
-      width:110px;
-      height:110px;
+    .inline {
+      /* width: 110px; */
+      /* height: 110px; */
       background: #fff;
       margin: 5%;
+      text-align: center;
+      /* padding-top: 50%; */
+      padding: 10px 20px;
     }
   }
 }
@@ -106,12 +109,7 @@
       height: 30%;
       div:nth-child(1){
         font-size: 12px;
-        //overflow: hidden;
-        //text-overflow: ellipsis;
-        /* white-space: nowrap; */
-        /* overflow: hidden; */
-        /* white-space: nowrap; */
-        /* word-break: break-all; */
+
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -122,9 +120,12 @@
         color: #333;
       }
       div:nth-child(2){
+        span{
+          color:$priceColor;
+        }
         position: absolute;
         bottom: 10px;
-        color:$priceColor;
+
       }
     }
   }
@@ -184,6 +185,17 @@
       margin-right: 4%;
     }
   }
+  .product-list-body {
+    overflow-y: auto;
+    .product-list-flex{
+      display: flex;
+      flex-wrap: wrap;
+      height: 100%;
+    }
+    .am-activity-indicator {
+      justify-content: center;
+    }
+  }
 }
 //商品详情页面
 .product-list-item{
@@ -191,9 +203,11 @@
 
   .hidden{
     transform: translateY(45px);
+    display: none;
   }
   .show{
     transform: translateY(-305px);
+    display: block;
     .add-to-car-pic{
       background-size: cover;
       background-repeat: no-repeat;
@@ -274,8 +288,8 @@
     box-sizing: border-box;
     padding: 10px;
     .shop-pic{
-      height: 80px;
-      width: 80px;
+      //height: 80px;
+      //width: 80px;
       border: 1px solid #ccc;
       flex: 1 1;
     }
@@ -344,69 +358,7 @@
     }
   }
 }
-//评价页面
-.assess-view{
-  background: $background-color;
-  .select-bar{
-    background-color: #fff;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    height: 45px;
-    position: relative;
-    top: 45px;
-    border-bottom: 1px solid #ccc;
-    align-items: center;
-    .active{
-      color:$priceColor;
-    }
-    div{
-      flex:1 1;
-      text-align: center;
-      color: #666;
-      font-size: 12px;
-    }
-  }
-  .assess-content{
-    background-color: #fff;
-    position: relative;
-    top: 55px;
-    overflow: auto;
-    .assess-item{
-      padding:8px 3px;
-      .customer-pic{
-        width:30px;
-        height: 30px;
-        border: 1px solid #ccc;
-        border-radius: 15px;
-        float: left;
-        margin-right: 5px;
-      }
-      .customer-info{
-        .customer-name{
-          font-size: 12px;
-        }
-        .product-info{
-          color:#999;
-        }
-        margin-bottom:5px;
-      }
-      .pic-assess{
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        flex-wrap: wrap;
-        .pic-item{
-          height: 100px;
-          width: 100px;
-          margin: 5px;
-          background-size: cover;
-        }
-      }
-    }
 
-  }
-}
 .add-shopping{
   display: flex;
   flex-wrap: wrap;
@@ -425,7 +377,9 @@
   .selected{
     border:1px solid $priceColor;
     color: $priceColor;
+    background: #fff;
   }
 
 }
+
 
