@@ -33,7 +33,7 @@ class MainView extends React.Component {
            login(res);
             // axios.defaults.headers.common['token'] = `${res.userId}_${res.token}`;
            // window.commInfo.token=`${res.userId}_${res.token}`
-           history.push('/')
+           history.push('/home')
         },error=>{
             alert('',<span>{error.errMsge}</span>, [
                 { text: '确认', onPress: () => this.setState({userName:'',passWord:''}) },

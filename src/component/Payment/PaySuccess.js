@@ -25,8 +25,8 @@ export default class MainView extends React.Component {
                         img={myImg('https://gw.alipayobjects.com/zos/rmsportal/pdFARIqkrKEGVVEwotFe.svg')}
                         title="支付成功"
                     />
-                    <Button inline style={{ margin: '15px' }} size="small" className='pay-result-button' onClick={()=>history.push('/orderlist')}>查看订单</Button>
-                    <Button inline size="small" className='pay-result-button' onClick={()=>history.push('/')}>回到首页</Button>
+                    <Button inline style={{ margin: '15px' }} size="small" className='pay-result-button' onClick={()=>history.push('/orderlist/9')}>查看订单</Button>
+                    <Button inline size="small" className='pay-result-button' onClick={()=>history.push('/home')}>回到首页</Button>
                 </div>
             </div>
         )
