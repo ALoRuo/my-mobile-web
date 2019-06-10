@@ -61,6 +61,7 @@ class MainView extends React.Component {
         // }else if(type === '5'){
         //     dataSource = stateTypeList.waitpToAssess;
         // }
+        history.push('/orderlist/'+type);
         if(type === 9){
             this.initOrderList({});
         }else{
@@ -81,6 +82,8 @@ class MainView extends React.Component {
     completeOrder = (orderId) => {
         model.completeOrder({
             'order_id':orderId
+        }).then(res=>{
+            this.handleChange(parseInt(this.props.match.params.type))
         })
     }
     cancelOrder = (orderId) =>{
@@ -118,7 +121,7 @@ class MainView extends React.Component {
                     style={{position:'fixed',top:0,width:'100%',background:'#ececec'}}
                     mode="light"
                     icon={<Icon type="left" color={'#7cb37c'} size={'lg'}/>}
-                    onLeftClick={() => history.go(-1)}
+                    onLeftClick={() => history.push('/userMessage')}
                     rightContent={[
                         <Icon key="0" type="search" style={{ marginRight: '16px' ,color:'#666'}}
                             onClick={()=>{history.push('/searchorderlist')}}
@@ -190,16 +193,16 @@ class MainView extends React.Component {
                                         item.status === 0 &&
                                         <div className='bottom-button'><span className='black-button' onClick={()=>this.cancelOrder(item.id)}>取消订单</span><span className='orange-button'>立即付款</span></div>
                                     }
-                                    {/*{*/}
-                                        {/*item.status === 1 &&*/}
-                                        {/*<div className='bottom-button'><span className='black-button'>提醒发货</span><span className='orange-button' onClick={()=>this.completeOrder(item.orderId)}>确认收货</span></div>*/}
-                                    {/*}*/}
                                     {
-                                        item.status === 2 &&
-                                        <div className='bottom-button'><span className='black-button'>查看物流</span><span className='orange-button' onClick={()=>this.completeOrder(item.orderId)}>确认收货</span></div>
+                                        item.status === 1 &&
+                                        <div className='bottom-button'><span className='black-button'>提醒发货</span><span className='orange-button' onClick={()=>this.completeOrder(item.items[0][0].orderId)}>确认收货</span></div>
                                     }
                                     {
-                                        (item.status === 3 || item.status === 1)&&<div className='bottom-button'><span className='orange-button' onClick={()=>this.goToAccess(item.items)}>评价</span> </div>
+                                        item.status === 2 &&
+                                        <div className='bottom-button'><span className='black-button'>查看物流</span><span className='orange-button' onClick={()=>this.completeOrder(item.items[0][0].orderId)}>确认收货</span></div>
+                                    }
+                                    {
+                                        (item.status === 3 )&&<div className='bottom-button'><span className='orange-button' onClick={()=>this.goToAccess(item.items)}>评价</span> </div>
                                     }
                                     {
                                         (item.status === 5)&&<div className='bottom-button'><span style={{color:'red'}}>订单失效</span> </div>

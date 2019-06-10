@@ -47,7 +47,7 @@ export default {
     //完成订单支付
     ORDER_PAY: prefixed+'order/pay',
     //确认收货
-    ORDER_COMPLETED: prefixed+'order/complete',
+    ORDER_COMPLETED: prefixed+'order/Completed',
     //删除订单
     CANCEL_ORDER:prefixed+'order/cancel',
     //上传照片

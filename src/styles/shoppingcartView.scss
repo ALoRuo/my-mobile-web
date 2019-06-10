@@ -81,6 +81,8 @@
     bottom:50px;
     width:100%;
     border-top:$border-style;
+    background: #fff;
+    z-index: 1000;
     .am-list-item{
       background-color:inherit;
     }

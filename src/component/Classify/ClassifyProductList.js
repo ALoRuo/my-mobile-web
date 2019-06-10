@@ -105,7 +105,7 @@ export default class MainView extends React.Component {
                                 <div className='item-message'>
                                     <div >{item.name}</div>
                                     <div style={{width:'90%'}}>
-                                        <span style={{float:'left'}}>￥{item.price}</span>
+                                        <span style={{float:'left'}}>￥{item.promotionPrice?item.promotionPrice:item.price}</span>
                                         <span style={{float:'right',color:'#666',fontSize:12}}>月销：{item.sale}</span>
                                     </div>
                                 </div>

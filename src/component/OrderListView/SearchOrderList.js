@@ -27,6 +27,11 @@ class MainView extends React.Component {
         }).then(res=>{
             let {getOrderSearchList} = this.props.methods;
             let dataSource = [];
+            // if(res['order_master_list'].length !== 0){
+            //     res['order_master_list'].forEach(item=> {
+            //         dataSource.push(item);
+            //     })
+            // }
             res['order_master_list'].forEach(item=> {
                 dataSource.push(item);
             })
