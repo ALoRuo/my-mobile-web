@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.2.8",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "customize-cra": "^0.2.9",
     "history": "^4.7.2",
     "less": "^3.9.0",
